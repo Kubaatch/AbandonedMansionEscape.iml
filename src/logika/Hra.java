@@ -24,14 +24,17 @@ public class Hra implements IHra {
     public Hra() {
         herniPlan = new HerniPlan();
         platnePrikazy = new SeznamPrikazu();
-        platnePrikazy.vlozPrikaz(new PrikazNapoveda(platnePrikazy));
         platnePrikazy.vlozPrikaz(new PrikazJdi(this));
         platnePrikazy.vlozPrikaz(new PrikazKonec(this));
-        platnePrikazy.vlozPrikaz(new PrikazSeber(herniPlan));
+        platnePrikazy.vlozPrikaz(new PrikazNapoveda(platnePrikazy));
         platnePrikazy.vlozPrikaz(new PrikazPoloz(herniPlan));
-        platnePrikazy.vlozPrikaz(new PrikazPouzij(herniPlan));
-        platnePrikazy.vlozPrikaz(new PrikazTancuj());
+        platnePrikazy.vlozPrikaz(new PrikazOdemkni(herniPlan));
+        platnePrikazy.vlozPrikaz(new PrikazPrecti(herniPlan));
+        platnePrikazy.vlozPrikaz(new PrikazSeber(herniPlan));
+        platnePrikazy.vlozPrikaz(new PrikazSnez(herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazSpanek());
+        platnePrikazy.vlozPrikaz(new PrikazTancuj());
+        platnePrikazy.vlozPrikaz(new PrikazVypac(herniPlan));
     }
 
     /**
@@ -74,13 +77,13 @@ public class Hra implements IHra {
         for(int i=0 ;i<parametry.length;i++){
            	parametry[i]= slova[i+1];  	
         }
-        String textKVypsani=" .... ";
+        String textKVypsani;
         if (platnePrikazy.jePlatnyPrikaz(slovoPrikazu)) {
             IPrikaz prikaz = platnePrikazy.vratPrikaz(slovoPrikazu);
             textKVypsani = prikaz.provedPrikaz(parametry);
         }
         else {
-            textKVypsani="Nevím co tím myslíš? Tento příkaz neznám... ";
+            textKVypsani = "Nevím co tím myslíš? Tento příkaz neznám... ";
         }
         return textKVypsani;
     }

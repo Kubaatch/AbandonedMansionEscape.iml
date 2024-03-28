@@ -36,7 +36,7 @@ public class HerniPlan {
      */
     private void zalozProstoryHry() {
         // vytvářejí se jednotlivé prostory
-        Prostor dvereVen = new Prostor("dveře_ven","masivní dubové dveře se zrezlou klíčovou dírkou");
+        Prostor dvereVen = new Prostor("dveře_ven","masivní dubové dveře se zrezlou klíčovou dírkou", true);
         Prostor foyer = new Prostor("foyer", "vstupní místnost s prachem pokrytými soškami");
         Prostor jidelna = new Prostor("jídelna","jediným kusem nábytku je zde starý mahagonový stůl");
         Prostor kuchyn = new Prostor("kuchyň","zatuchlá místnost prolezlá plísní");
@@ -63,6 +63,7 @@ public class HerniPlan {
         chodba.setVychod(sklep);
         loznice.setVychod(chodba);
         sklep.setVychod(chodba);
+        sklep.setVychod(kuchyn);
 
         // určení počátečního a výherního prostoru
         aktualniProstor = loznice;
@@ -76,12 +77,15 @@ public class HerniPlan {
         jidelna.vlozVec(new Vec("stůl", false, false));
         kuchyn.vlozVec(new Vec("hrnec", true, 2));
         kuchyn.vlozVec(new Vec("naběračka", true, 1));
-        chodba.vlozVec(new Vec("páčidlo", true, 1));
+        kuchyn.vlozVec(new Vec("páčidlo", true, 1));
+        kuchyn.vlozVec(new Vec("plesnivý_sýr", true, 1));
+        kuchyn.vlozVec(new Vec("plísňový_sýr", true, 1));
         sklep.vlozVec(new Vec("zamčená_skříň", false, true));
         sklep.vlozVec(new Vec("zrezivělý_zámek", true, 1));
         sklep.vlozVec(new Vec("lopata", true, 2));
         sklep.vlozVec(new Vec("valcha", false, false));
-        sklep.vlozVec(new Vec("prkno_v_podlaze", false, true));
+        sklep.vlozVec(new Vec("prkno_v_podlaze", false, true, true));
+        sklep.vlozVec(new Vec("rezavý_klíč", false, 1));
         loznice.vlozVec(new Vec("královská_postel", false, false));
         loznice.vlozVec(new Vec("noční_stolek", false, true));
         loznice.vlozVec(new Vec("svíčka", true, 1));
@@ -93,16 +97,16 @@ public class HerniPlan {
         studovna.vlozVec(new Vec("šachovnice", true, 2));
         studovna.vlozVec(new Vec("gauč", false, false));
         studovna.vlozVec(new Vec("truhla", false, true));
-        knihovna.vlozVec(new Vec("modrá_kniha", true, 1));
-        knihovna.vlozVec(new Vec("bible", true, 1));
-        knihovna.vlozVec(new Vec("zelená_kniha", true, 1));
-        knihovna.vlozVec(new Vec("kožená_kniha", true, 1));
-        knihovna.vlozVec(new Vec("schovaný_deník", true, 1));
-        knihovna.vlozVec(new Vec("černá_kniha", true, 1));
+        knihovna.vlozVec(new Vec("modrá_kniha", true, true,  1));
+        knihovna.vlozVec(new Vec("bible", true, true, 2));
+        knihovna.vlozVec(new Vec("zelená_kniha", true, true, 1));
+        knihovna.vlozVec(new Vec("kožená_kniha", true, true, 1));
+        knihovna.vlozVec(new Vec("schovaný_deník", true, true, 1));
+        knihovna.vlozVec(new Vec("černá_kniha", true, true, 1));
 
         //vytvoření kapes
         kapsy = new Kapsy(KAPACITA_KAPES);
-        Vec rizek = new Vec("řízek_v_alobalu", true, 1);
+        Vec rizek = new Vec("řízek_v_alobalu", true, 1, true);
         kapsy.vlozDoKapes(rizek);
     }
     

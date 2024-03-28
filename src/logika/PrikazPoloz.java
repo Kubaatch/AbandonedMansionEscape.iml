@@ -11,7 +11,7 @@ public class PrikazPoloz implements IPrikaz {
     @Override
     public String provedPrikaz(String[] parametry) {
         if (parametry.length == 0) {
-            return "Co mám položit? Musíš zadat název předmětu...";
+            return "Co chceš položit? Musíš zadat název předmětu...";
         }
         if (parametry.length > 1) {
             return "Chceš toho položit nějak moc. Můžeš najednou položit jen jednu věc.";
@@ -21,13 +21,13 @@ public class PrikazPoloz implements IPrikaz {
 
         Vec pozadovanaVec = herniPlan.getKapsy().odeberZKapes(nazevVeci);
 
-        if (pozadovanaVec != null) {
-            herniPlan.getAktualniProstor().vlozVec(pozadovanaVec);
-            return nazevVeci + " jsi položil do místnosti/prostoru";
+        if (pozadovanaVec == null) {
+            return nazevVeci + " nemáš v kapsách.";
         }
 
+        herniPlan.getAktualniProstor().vlozVec(pozadovanaVec);
+        return nazevVeci + " jsi položil do místnosti/prostoru";
 
-        return nazevVeci + " nemáš v kapsách.";
     }
 
     @Override

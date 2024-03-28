@@ -38,6 +38,24 @@ public class Kapsy {
         return null;
     }
 
+    public Vec vyberVec(String nazevVeci) {
+        Vec vybranaVec = null;
+
+        for (Vec vec : obsahKapes) {
+            if(vec.getNazev().equals(nazevVeci)) {
+                vybranaVec = vec;
+            }
+        }
+
+        if (vybranaVec != null && vybranaVec.isPrenositelna()) {
+            obsahKapes.remove(vybranaVec);
+        } else {
+            vybranaVec = null;
+        }
+
+        return vybranaVec;
+    }
+
     public String dlouhyPopis() {
         String vypis = "Obsah kapes:";
         for (Vec vec : obsahKapes) {
@@ -49,5 +67,14 @@ public class Kapsy {
 
     public Set<Vec> getObsahKapes() {
         return obsahKapes;
+    }
+
+    public boolean obsahujeVec(String nazevVeci) {
+        for (Vec vec : obsahKapes) {
+            if (vec.getNazev().equals(nazevVeci)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -19,6 +19,7 @@ public class Prostor {
 
     private String nazev;
     private String popis;
+    private boolean zamceny;
     private Set<Prostor> vychody;   // obsahuje sousední místnosti
     private List<Vec> seznamVeci;
 
@@ -30,9 +31,18 @@ public class Prostor {
      * víceslovný název bez mezer.
      * @param popis Popis prostoru.
      */
+    public Prostor(String nazev, String popis, boolean zamceny) {
+        this.nazev = nazev;
+        this.popis = popis;
+        this.zamceny = zamceny;
+        vychody = new HashSet<>();
+        seznamVeci = new ArrayList<Vec>();
+    }
+
     public Prostor(String nazev, String popis) {
         this.nazev = nazev;
         this.popis = popis;
+        zamceny = false;
         vychody = new HashSet<>();
         seznamVeci = new ArrayList<Vec>();
     }
@@ -142,6 +152,9 @@ public class Prostor {
     private String popisVeci() {
         String vracenyText = "věci v místnosti:";
         for (Vec vec : seznamVeci) {
+            if (vec.isSchovana()) {
+                continue;
+            }
             vracenyText += " " + vec.getNazev();
         }
 
@@ -217,10 +230,10 @@ public class Prostor {
             }
         }
 
-        if (vybranaVec != null) {
-            if (vybranaVec.isPrenositelna()) {
-                seznamVeci.remove(vybranaVec);
-            }
+        if (vybranaVec != null && vybranaVec.isPrenositelna()) {
+            seznamVeci.remove(vybranaVec);
+        } else {
+            vybranaVec = null;
         }
 
         return vybranaVec;
@@ -228,5 +241,13 @@ public class Prostor {
 
     public List<Vec> getSeznamVeci() {
         return seznamVeci;
+    }
+
+    public boolean isZamceny() {
+        return zamceny;
+    }
+
+    public void setZamceny(boolean zamceny) {
+        this.zamceny = zamceny;
     }
 }

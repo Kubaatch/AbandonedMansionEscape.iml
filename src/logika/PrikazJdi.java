@@ -35,7 +35,7 @@ public class PrikazJdi implements IPrikaz {
     public String provedPrikaz(String... parametry) {
         // pokud chybí druhé slovo (sousední prostor), tak ....
         if (parametry.length == 0) {
-            return "Kam mám jít? Musíš zadat jméno východu";
+            return "Kam chceš jít? Musíš zadat jméno východu";
         }
         if (parametry.length > 1) {
             return "Napsal jsi toho nějak moc...";
@@ -49,15 +49,21 @@ public class PrikazJdi implements IPrikaz {
         if (sousedniProstor == null) {
             return "Tam se odsud jít nedá!";
         }
-        else {
-            plan.setAktualniProstor(sousedniProstor);
-            if (plan.getAktualniProstor().equals(plan.getVyherniProstor())) {
-                hra.setEpilog("Gratuluji, vyhrál jsi hru!");
-                hra.setKonecHry(true);
-                return "";
-            }
-            return sousedniProstor.dlouhyPopis() + '\n' + plan.getKapsy().dlouhyPopis();
+        if (sousedniProstor.isZamceny())
+        {
+            return "Prostor je zamčený, musíš ho nejdříve odemknout.";
         }
+
+        plan.setAktualniProstor(sousedniProstor);
+
+        if (plan.getAktualniProstor().equals(plan.getVyherniProstor())) {
+            hra.setEpilog("Gratuluji, vyhrál jsi hru!");
+            hra.setKonecHry(true);
+            return "";
+        }
+
+        return sousedniProstor.dlouhyPopis() + '\n' + plan.getKapsy().dlouhyPopis();
+
     }
     
     /**

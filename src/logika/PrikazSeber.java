@@ -12,30 +12,29 @@ public class PrikazSeber implements IPrikaz {
     @Override
     public String provedPrikaz(String[] parametry) {
         if (parametry.length == 0) {
-            return "Co mám sebrat? Musíš zadat název předmětu...";
+            return "Co chceš sebrat? Musíš zadat název předmětu...";
         }
         if (parametry.length > 1) {
             return "Chceš toho sebrat nějak moc. Můžeš najednou sebrat jen jednu věc.";
         }
 
         String nazevVeci = parametry[0];
+        if (!herniPlan.getAktualniProstor().obsahujeVec(nazevVeci)) {
+            return nazevVeci + " se nenachází v tomto prostoru.";
+        }
 
-        if (herniPlan.getAktualniProstor().obsahujeVec(nazevVeci)) {
-            Vec pozadovanaVec = herniPlan.getAktualniProstor().vyberVec(nazevVeci);
-            if (pozadovanaVec == null) {
-                return nazevVeci + " se nedá sebrat.";
-            }
+        Vec pozadovanaVec = herniPlan.getAktualniProstor().vyberVec(nazevVeci);
+        if (pozadovanaVec == null) {
+            return nazevVeci + " se nedá sebrat.";
+        }
 
-            boolean povedloSeUlozit = herniPlan.getKapsy().vlozDoKapes(pozadovanaVec);
-            if (povedloSeUlozit) {
-                return "Sebral jsi " + pozadovanaVec.getNazev();
-            }
-
+        boolean povedloSeUlozit = herniPlan.getKapsy().vlozDoKapes(pozadovanaVec);
+        if (!povedloSeUlozit) {
             herniPlan.getAktualniProstor().vlozVec(pozadovanaVec);
             return "Snažíš se nacpat předmět " + pozadovanaVec.getNazev() + " do plných kapes.";
         }
 
-        return nazevVeci + " se nenachází v tomto prostoru.";
+        return "Sebral jsi " + pozadovanaVec.getNazev();
     }
 
     @Override
