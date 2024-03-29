@@ -244,4 +244,8 @@ public class Prostor {
     public void setZamceny(boolean zamceny) {
         this.zamceny = zamceny;
     }
+
+    private String getNazev(Prostor prostor) {
+        return nazev;
+    }
 }

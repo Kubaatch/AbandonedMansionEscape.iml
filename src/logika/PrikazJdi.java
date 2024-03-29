@@ -54,16 +54,27 @@ public class PrikazJdi implements IPrikaz {
             return "Prostor je zamčený, musíš ho nejdříve odemknout.";
         }
 
-        plan.setAktualniProstor(sousedniProstor);
 
+        if (plan.getSanityMeter().getUrovenZblazneni() >= 5) {
+            hra.setEpilog("Ticho a samota v sídle tě přivedly k šílenství, prohrál jsi tuto hru.");
+            hra.setKonecHry(true);
+            return "";
+        }
+
+        String upozorneni = "";
+        if (plan.getSanityMeter().getUrovenZblazneni() == 4) {
+            upozorneni = "Fuj! Leknul ses netopýra, který kolem tebe proletěl. Možná by ses měl něčím uklidnit.\n";
+        }
+
+        plan.setAktualniProstor(sousedniProstor);
         if (plan.getAktualniProstor().equals(plan.getVyherniProstor())) {
             hra.setEpilog("Gratuluji, vyhrál jsi hru!");
             hra.setKonecHry(true);
             return "";
         }
 
-        return sousedniProstor.dlouhyPopis() + '\n' + plan.getKapsy().dlouhyPopis();
-
+        plan.getSanityMeter().increaseUrovenZblazneni();
+        return upozorneni + sousedniProstor.dlouhyPopis() + '\n' + plan.getKapsy().dlouhyPopis();
     }
     
     /**

@@ -1,7 +1,5 @@
 package logika;
 
-import java.util.Set;
-
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
  * 
@@ -17,8 +15,7 @@ public class HerniPlan {
     
     private Prostor aktualniProstor;
     private Prostor vyherniProstor;
-
-    private Set<Prostor> prostory;
+    private InsanityMeter insanityMeter;
     private Kapsy kapsy;
     private final int KAPACITA_KAPES = 4;
 
@@ -110,6 +107,9 @@ public class HerniPlan {
         kapsy = new Kapsy(KAPACITA_KAPES);
         Vec rizek = new Vec("řízek_v_alobalu", true, 1, true);
         kapsy.vlozDoKapes(rizek);
+
+        // nastavení úrovně zbláznění
+        insanityMeter = new InsanityMeter(0);
     }
     
     /**
@@ -136,5 +136,9 @@ public class HerniPlan {
 
     public Kapsy getKapsy() {
         return kapsy;
+    }
+
+    public InsanityMeter getSanityMeter() {
+        return insanityMeter;
     }
 }
