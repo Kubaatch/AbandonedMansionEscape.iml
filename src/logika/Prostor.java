@@ -140,6 +140,9 @@ public class Prostor {
         String vracenyText = "sousední místnosti:";
         for (Prostor sousedni : vychody) {
             vracenyText += ' ' + sousedni.getNazev();
+            if (sousedni.isZamceny()) {
+                vracenyText += "(zamčeno)\uD83D\uDD12";
+            }
         }
         return vracenyText;
     }

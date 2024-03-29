@@ -35,7 +35,7 @@ public class HerniPlan {
      */
     private void zalozProstoryHry() {
         // vytvářejí se jednotlivé prostory
-        Prostor dvereVen = new Prostor("dveře_ven","masivní dubové dveře se zrezlou klíčovou dírkou", true);
+        Prostor dvereVen = new Prostor("východ","masivní dubové dveře se zrezlou klíčovou dírkou", true);
         Prostor foyer = new Prostor("foyer", "vstupní místnost s prachem pokrytými soškami");
         Prostor jidelna = new Prostor("jídelna","jediným kusem nábytku je zde starý mahagonový stůl");
         Prostor kuchyn = new Prostor("kuchyň","zatuchlá místnost prolezlá plísní");
@@ -44,6 +44,8 @@ public class HerniPlan {
         Prostor loznice = new Prostor("ložnice", "starobylá místnost s prázdnými skříněmi a prasklým zrcadlem");
         Prostor studovna = new Prostor("studovna", "obývací pokoj se zaprášeným nábytkem a starou šachovnicí");
         Prostor knihovna = new Prostor("knihovna", "menší místnost plná knih všech velikostí a barev");
+        Prostor pristenek = new Prostor("přístěnek", "malá kouzelná místnůstka, schovávající se pod schody do patra");
+        Prostor prvniPatro = new Prostor("1.patro", "nábytkem zcela zablokovaná část sídla, kam se nedá dostat");
         
         // přiřazují se průchody mezi prostory (sousedící prostory)
         foyer.setVychod(dvereVen);
@@ -60,6 +62,10 @@ public class HerniPlan {
         chodba.setVychod(foyer);
         chodba.setVychod(loznice);
         chodba.setVychod(sklep);
+        foyer.setVychod(prvniPatro);
+        prvniPatro.setVychod(foyer);
+        chodba.setVychod(pristenek);
+        pristenek.setVychod(chodba);
         loznice.setVychod(chodba);
         sklep.setVychod(chodba);
         sklep.setVychod(kuchyn);
@@ -102,6 +108,7 @@ public class HerniPlan {
         knihovna.vlozVec(new Vec("kožená_kniha", true, true, 1));
         knihovna.vlozVec(new Vec("deník", true, true, 1));
         knihovna.vlozVec(new Vec("černá_kniha", true, true, 1));
+        prvniPatro.vlozVec(new Vec("fakt_velká_hromada_nábytku", false, false));
 
         //vytvoření kapes
         kapsy = new Kapsy(KAPACITA_KAPES);

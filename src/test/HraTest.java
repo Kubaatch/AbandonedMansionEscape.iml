@@ -26,8 +26,8 @@ public class HraTest {
         assertEquals("""
                 Vítej!
                 Probudil/a ses v královské posteli v očividně dlouho opuštěném sídle.
+                Nevíš proč tu jsi a chceš se co nejdříve dostat ven.
                 Napiš 'nápověda', pokud si nevíš rady, jak hrát dál.
-
                 Popis místnosti 'ložnice': starobylá místnost s prázdnými skříněmi a prasklým zrcadlem.
                 sousední místnosti: chodba
                 věci v místnosti: královská_postel noční_stolek svíčka
@@ -36,14 +36,14 @@ public class HraTest {
         // 1. krok jdi chodba
         assertEquals("""
                 Popis místnosti 'chodba': dlouhá rovná chodba, která vypadá jako z hororu.
-                sousední místnosti: ložnice sklep foyer
+                sousední místnosti: přístěnek ložnice sklep foyer
                 věci v místnosti: obraz portrét květináč kožené_boty
                 Obsah kapes: řízek_v_alobalu""", hra.zpracujPrikaz("jdi chodba"));
 
         // 2. krok jdi foyer
         assertEquals("""
                 Popis místnosti 'foyer': vstupní místnost s prachem pokrytými soškami.
-                sousední místnosti: dveře_ven chodba jídelna studovna
+                sousední místnosti: chodba východ(zamčeno)🔒 1.patro jídelna studovna
                 věci v místnosti: zdobená_váza deštník lucerna
                 Obsah kapes: řízek_v_alobalu""", hra.zpracujPrikaz("jdi foyer"));
 
@@ -80,7 +80,7 @@ public class HraTest {
         // 7. krok jdi foyer
         assertEquals("""
                 Popis místnosti 'foyer': vstupní místnost s prachem pokrytými soškami.
-                sousední místnosti: dveře_ven chodba jídelna studovna
+                sousední místnosti: chodba východ(zamčeno)🔒 1.patro jídelna studovna
                 věci v místnosti: zdobená_váza deštník lucerna
                 Obsah kapes: řízek_v_alobalu páčidlo""", hra.zpracujPrikaz("jdi foyer"));
 
@@ -125,7 +125,7 @@ public class HraTest {
         assertEquals("""
                 Fuj! Leknul ses netopýra, který kolem tebe proletěl. Možná by ses měl něčím uklidnit.
                 Popis místnosti 'foyer': vstupní místnost s prachem pokrytými soškami.
-                sousední místnosti: dveře_ven chodba jídelna studovna
+                sousední místnosti: chodba východ(zamčeno)🔒 1.patro jídelna studovna
                 věci v místnosti: zdobená_váza deštník lucerna
                 Obsah kapes: řízek_v_alobalu páčidlo deník""", hra.zpracujPrikaz("jdi foyer"));
 
@@ -137,7 +137,7 @@ public class HraTest {
         // 14. krok jdi chodba
         assertEquals("""
                 Popis místnosti 'chodba': dlouhá rovná chodba, která vypadá jako z hororu.
-                sousední místnosti: ložnice sklep foyer
+                sousední místnosti: přístěnek ložnice sklep foyer
                 věci v místnosti: obraz portrét květináč kožené_boty
                 Obsah kapes: řízek_v_alobalu páčidlo deník""", hra.zpracujPrikaz("jdi chodba"));
 
@@ -158,22 +158,22 @@ public class HraTest {
         // 18. jdi chodba
         assertEquals("""
                 Popis místnosti 'chodba': dlouhá rovná chodba, která vypadá jako z hororu.
-                sousední místnosti: ložnice sklep foyer
+                sousední místnosti: přístěnek ložnice sklep foyer
                 věci v místnosti: obraz portrét květináč kožené_boty
                 Obsah kapes: řízek_v_alobalu páčidlo deník rezavý_klíč""", hra.zpracujPrikaz("jdi chodba"));
 
         // 19. jdi foyer
         assertEquals("""
                 Popis místnosti 'foyer': vstupní místnost s prachem pokrytými soškami.
-                sousední místnosti: dveře_ven chodba jídelna studovna
+                sousední místnosti: chodba východ(zamčeno)🔒 1.patro jídelna studovna
                 věci v místnosti: zdobená_váza deštník lucerna
                 Obsah kapes: řízek_v_alobalu páčidlo deník rezavý_klíč""", hra.zpracujPrikaz("jdi foyer"));
 
         // 20. odemkni dveře_ven
-        assertEquals("Odemknul jsi dveře_ven", hra.zpracujPrikaz("odemkni dveře_ven"));
+        assertEquals("Odemknul jsi východ", hra.zpracujPrikaz("odemkni východ"));
 
         // 21. jdi dveře_ven (vyhraje hru)
-        assertEquals("", hra.zpracujPrikaz("jdi dveře_ven"));
+        assertEquals("", hra.zpracujPrikaz("jdi východ"));
 
         assertTrue(hra.konecHry());
         assertEquals("Gratuluji, vyhrál jsi hru!", hra.vratEpilog());

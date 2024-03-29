@@ -13,7 +13,7 @@ package logika;
  */
 
 public class Hra implements IHra {
-    private SeznamPrikazu platnePrikazy;    // obsahuje seznam přípustných příkazů
+    private final SeznamPrikazu platnePrikazy;    // obsahuje seznam přípustných příkazů
     private HerniPlan herniPlan;
     private boolean konecHry = false;
     private String epilog = "Dík že jste si zahráli, ahoj.";
@@ -41,9 +41,12 @@ public class Hra implements IHra {
      *  Vrátí úvodní zprávu pro hráče.
      */
     public String vratUvitani() {
-        return "Vítej!\n" +
-               "Probudil/a ses v královské posteli v očividně dlouho opuštěném sídle.\n" +
-               "Napiš 'nápověda', pokud si nevíš rady, jak hrát dál.\n" + "\n" +
+        return """
+               Vítej!
+               Probudil/a ses v královské posteli v očividně dlouho opuštěném sídle.
+               Nevíš proč tu jsi a chceš se co nejdříve dostat ven.
+               Napiš 'nápověda', pokud si nevíš rady, jak hrát dál.
+               """ +
                 herniPlan.getAktualniProstor().dlouhyPopis() + '\n' +
                 herniPlan.getKapsy().dlouhyPopis();
     }
