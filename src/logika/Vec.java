@@ -111,4 +111,8 @@ public class Vec {
     public boolean isSchovana() {
         return schovana;
     }
+
+    public void setSchovanost(boolean schovana) {
+        this.schovana = schovana;
+    }
 }

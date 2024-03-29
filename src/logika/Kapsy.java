@@ -1,20 +1,21 @@
 package logika;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Kapsy {
     private final int kapacita;
     private int vyuzitaKapacita;
-    private Set<Vec> obsahKapes;
+    private List<Vec> obsahKapes;
 
     /**
-     * DOPLN POPIS
      *
      * @param kapacita
      */
     public Kapsy(int kapacita) {
         this.kapacita = kapacita;
-        obsahKapes = new HashSet<>();
+        obsahKapes = new ArrayList<Vec>();
     }
 
     public boolean vlozDoKapes(Vec vec) {
@@ -47,12 +48,6 @@ public class Kapsy {
             }
         }
 
-        if (vybranaVec != null && vybranaVec.isPrenositelna()) {
-            obsahKapes.remove(vybranaVec);
-        } else {
-            vybranaVec = null;
-        }
-
         return vybranaVec;
     }
 
@@ -65,7 +60,7 @@ public class Kapsy {
         return vypis;
     }
 
-    public Set<Vec> getObsahKapes() {
+    public List<Vec> getObsahKapes() {
         return obsahKapes;
     }
 

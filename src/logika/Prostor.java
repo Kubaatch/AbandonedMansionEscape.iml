@@ -230,12 +230,6 @@ public class Prostor {
             }
         }
 
-        if (vybranaVec != null && vybranaVec.isPrenositelna()) {
-            seznamVeci.remove(vybranaVec);
-        } else {
-            vybranaVec = null;
-        }
-
         return vybranaVec;
     }
 

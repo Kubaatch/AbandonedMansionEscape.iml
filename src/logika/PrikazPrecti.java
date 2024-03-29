@@ -40,7 +40,7 @@ public class PrikazPrecti implements IPrikaz {
             case "bible":
                 vracenyText += TEXT_BIBLE;
                 break;
-            case "schovaný_deník":
+            case "deník":
                 vracenyText += TEXT_DENIKU;
                 break;
             case "modrá_kniha":

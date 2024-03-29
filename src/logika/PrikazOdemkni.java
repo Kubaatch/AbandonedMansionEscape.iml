@@ -25,6 +25,10 @@ public class PrikazOdemkni implements IPrikaz {
         String nazevProstoru = parametry[0];
         Prostor sousedniProstor = plan.getAktualniProstor().vratSousedniProstor(nazevProstoru);
 
+        if (sousedniProstor == null) {
+            return "Tento prostor nesousedí s tvým aktuálním prostorem.";
+        }
+
         if (!sousedniProstor.isZamceny()) {
             return "Prostor je odemčený, nemusíš ho odemykat.";
         }

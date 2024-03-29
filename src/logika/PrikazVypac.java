@@ -41,6 +41,7 @@ public class PrikazVypac implements IPrikaz {
         switch (nazevVeci) {
             case "prkno_v_podlaze":
                 plan.getAktualniProstor().vyberVec("rezavý_klíč").setPrenositelna(true);
+                plan.getAktualniProstor().vyberVec(nazevVeci).setVypacitelnost(false);
                 return "Vypáčil/a jsi prkno v podlaze a zjistil/a, že pod ním leží \"rezavý_klíč\".";
             case "zamčená_skříň":
                 Vec kostlivec = new Vec("kostlivec", true, 3);

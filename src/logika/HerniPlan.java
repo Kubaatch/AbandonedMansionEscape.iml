@@ -1,5 +1,6 @@
 package logika;
 
+import java.util.Set;
 
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
@@ -17,6 +18,7 @@ public class HerniPlan {
     private Prostor aktualniProstor;
     private Prostor vyherniProstor;
 
+    private Set<Prostor> prostory;
     private Kapsy kapsy;
     private final int KAPACITA_KAPES = 4;
 
@@ -78,8 +80,8 @@ public class HerniPlan {
         kuchyn.vlozVec(new Vec("hrnec", true, 2));
         kuchyn.vlozVec(new Vec("naběračka", true, 1));
         kuchyn.vlozVec(new Vec("páčidlo", true, 1));
-        kuchyn.vlozVec(new Vec("plesnivý_sýr", true, 1));
-        kuchyn.vlozVec(new Vec("plísňový_sýr", true, 1));
+        kuchyn.vlozVec(new Vec("plesnivý_sýr", true, 1, false));
+        kuchyn.vlozVec(new Vec("plísňový_sýr", true, 1, true));
         sklep.vlozVec(new Vec("zamčená_skříň", false, true));
         sklep.vlozVec(new Vec("zrezivělý_zámek", true, 1));
         sklep.vlozVec(new Vec("lopata", true, 2));
@@ -101,7 +103,7 @@ public class HerniPlan {
         knihovna.vlozVec(new Vec("bible", true, true, 2));
         knihovna.vlozVec(new Vec("zelená_kniha", true, true, 1));
         knihovna.vlozVec(new Vec("kožená_kniha", true, true, 1));
-        knihovna.vlozVec(new Vec("schovaný_deník", true, true, 1));
+        knihovna.vlozVec(new Vec("deník", true, true, 1));
         knihovna.vlozVec(new Vec("černá_kniha", true, true, 1));
 
         //vytvoření kapes
