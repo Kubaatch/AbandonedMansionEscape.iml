@@ -24,16 +24,18 @@ public class PrikazSeber implements IPrikaz {
         }
 
         Vec pozadovanaVec = herniPlan.getAktualniProstor().vyberVec(nazevVeci);
-        if (pozadovanaVec == null) {
+        if (!pozadovanaVec.isPrenositelna()) {
             return nazevVeci + " se nedá sebrat.";
         }
 
         boolean povedloSeUlozit = herniPlan.getKapsy().vlozDoKapes(pozadovanaVec);
+
         if (!povedloSeUlozit) {
             herniPlan.getAktualniProstor().vlozVec(pozadovanaVec);
             return "Snažíš se nacpat předmět " + pozadovanaVec.getNazev() + " do plných kapes.";
         }
 
+        herniPlan.getAktualniProstor().odeberVec(pozadovanaVec);
         return "Sebral jsi " + pozadovanaVec.getNazev();
     }
 

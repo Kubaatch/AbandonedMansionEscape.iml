@@ -20,6 +20,11 @@ public class HraTest {
         hra = null;
     }
 
+    /**
+     * Test - scénář, ideální cesta
+     * kontroluje průběh hry a zda jde vyhrát
+     * obsahuje seznam příkazů pro ideální (nejkratší) průběh hrou
+     */
     @Test
     public void testHry() {
         //uvítání - zapnutí hry
@@ -57,7 +62,7 @@ public class HraTest {
         // 4. krok jdi kuchyň
         assertEquals("""
                 Popis místnosti 'kuchyň': zatuchlá místnost prolezlá plísní.
-                sousední místnosti: sklep jídelna
+                sousední místnosti: jídelna
                 věci v místnosti: hrnec naběračka páčidlo plesnivý_sýr plísňový_sýr
                 Obsah kapes: řízek_v_alobalu""", hra.zpracujPrikaz("jdi kuchyň"));
 
@@ -178,6 +183,45 @@ public class HraTest {
         assertTrue(hra.konecHry());
         assertEquals("Gratuluji, vyhrál jsi hru!", hra.vratEpilog());
 
+    }
+
+    /**
+     * Test - Přenositelnost, PříkazSeber
+     * kontroluje různé výstupy po sebrání předmětu
+     * sleduje přenositelnost a existenci - vypíše
+     */
+    @Test
+    public void testPrenositelnost() {
+        assertEquals("sv se nenachází v tomto prostoru.", hra.zpracujPrikaz("seber sv"));
+        //předmět neexistuje
+
+        assertEquals("Sebral jsi svíčka", hra.zpracujPrikaz("seber svíčka"));
+        //úspěch
+
+        assertEquals("svíčka se nenachází v tomto prostoru.", hra.zpracujPrikaz("seber svíčka"));
+        //předmět byl sebrán, již neexistuje
+
+        assertEquals("noční_stolek se nedá sebrat.", hra.zpracujPrikaz("seber noční_stolek"));
+        //předmět nelze sebrat
+    }
+
+    /**
+     * Test - Kapacita, PříkazSeber
+     * kontroluje různé výstupy po sebrání předmětu
+     * sleduje plnost kapes: když jsou plné, nelze ukládat další předměty
+     */
+    @Test
+    public void testKapacita() {
+        //úvodní posun ve hře
+        hra.zpracujPrikaz("seber svíčka");
+        hra.zpracujPrikaz("jdi chodba");
+        //zde kapacita 2 ze 4
+
+        assertEquals("Sebral jsi kožené_boty", hra.zpracujPrikaz("seber kožené_boty"));
+        //zde kapacita 4 ze 4
+
+        assertEquals("Snažíš se nacpat předmět květináč do plných kapes.", hra.zpracujPrikaz("seber květináč"));
+        //nedovolí hráči přidat další předmět do kapes
     }
 }
 

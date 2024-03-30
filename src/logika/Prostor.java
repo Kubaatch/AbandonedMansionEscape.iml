@@ -217,6 +217,10 @@ public class Prostor {
         return false;
     }
 
+    public void odeberVec(Vec vybranaVec) {
+        seznamVeci.remove(vybranaVec);
+    }
+
     /**
      * metoda slouzi pro vybrani veci z mistnosti
      * kontroluje jestli je vec v mistnosti, jestli je prenositelna a vrati prislusnou hodnotu

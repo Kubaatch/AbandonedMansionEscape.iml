@@ -58,7 +58,6 @@ public class HerniPlan {
         jidelna.setVychod(kuchyn);
         jidelna.setVychod(foyer);
         kuchyn.setVychod(jidelna);
-        kuchyn.setVychod(sklep);
         chodba.setVychod(foyer);
         chodba.setVychod(loznice);
         chodba.setVychod(sklep);
