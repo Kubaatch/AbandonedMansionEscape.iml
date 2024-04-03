@@ -19,6 +19,9 @@ public class PrikazSpanek implements IPrikaz {
         int aktualni = plan.getSanityMeter().getUrovenZblazneni();
 
         plan.getSanityMeter().setUrovenZblazneni(aktualni-2);
+
+        if (plan.getSanityMeter().getUrovenZblazneni() < 0) {plan.getSanityMeter().setUrovenZblazneni(0);}
+
         return "Na chvilku sis schrupnul, zlepšilo ti to náladu...\uD83D\uDC7B";
     }
 

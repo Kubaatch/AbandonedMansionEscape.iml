@@ -150,7 +150,7 @@ public class HraTest {
         // 15. krok jdi sklep
         assertEquals("""
                 Popis místnosti 'sklep': tmavé podzemní prostory, kde může číhat cokoliv.
-                sousední místnosti: chodba kuchyň
+                sousední místnosti: chodba
                 věci v místnosti: zamčená_skříň zrezivělý_zámek lopata valcha rezavý_klíč
                 Obsah kapes: řízek_v_alobalu páčidlo deník""", hra.zpracujPrikaz("jdi sklep"));
 
@@ -180,6 +180,7 @@ public class HraTest {
         // 21. jdi dveře_ven (vyhraje hru)
         assertEquals("", hra.zpracujPrikaz("jdi východ"));
 
+        // kontrola ukončení hry
         assertTrue(hra.konecHry());
         assertEquals("Gratuluji, vyhrál jsi hru!", hra.vratEpilog());
 
@@ -188,7 +189,7 @@ public class HraTest {
     /**
      * Test - Přenositelnost, PříkazSeber
      * kontroluje různé výstupy po sebrání předmětu
-     * sleduje přenositelnost a existenci - vypíše
+     * sleduje přenositelnost a existenci
      */
     @Test
     public void testPrenositelnost() {
@@ -222,6 +223,17 @@ public class HraTest {
 
         assertEquals("Snažíš se nacpat předmět květináč do plných kapes.", hra.zpracujPrikaz("seber květináč"));
         //nedovolí hráči přidat další předmět do kapes
+    }
+
+    /**
+     * Test - PříkazSeber, PříkazPolož
+     * kontroluje možnost sebrat a položit předměty
+     */
+    @Test
+    public void testSeberPoloz() {
+        assertEquals("Sebral jsi svíčka", hra.zpracujPrikaz("seber svíčka"));
+
+        assertEquals("Položil jsi svíčka do místnosti/prostoru ložnice", hra.zpracujPrikaz("polož svíčka"));
     }
 }
 

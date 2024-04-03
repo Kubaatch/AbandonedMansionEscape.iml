@@ -61,6 +61,12 @@ public class Prostor {
         vychody.add(vedlejsi);
     }
 
+    public void setVychody(List<Prostor> prostory) {
+        for (Prostor prostor : prostory) {
+            vychody.add(prostor);
+        }
+    }
+
     /**
      * Metoda equals pro porovnání dvou prostorů. Překrývá se metoda equals ze
      * třídy Object. Dva prostory jsou shodné, pokud mají stejný název. Tato

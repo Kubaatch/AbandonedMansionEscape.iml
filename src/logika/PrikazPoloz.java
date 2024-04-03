@@ -26,7 +26,7 @@ public class PrikazPoloz implements IPrikaz {
         }
 
         herniPlan.getAktualniProstor().vlozVec(pozadovanaVec);
-        return nazevVeci + " jsi položil do místnosti/prostoru";
+        return "Položil jsi " + nazevVeci + " do místnosti/prostoru " + herniPlan.getAktualniProstor().getNazev();
 
     }
 

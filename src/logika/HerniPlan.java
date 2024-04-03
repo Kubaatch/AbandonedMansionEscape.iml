@@ -1,5 +1,8 @@
 package logika;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
  * 
@@ -12,7 +15,8 @@ package logika;
  *@version    1.1 2024/03/23
  */
 public class HerniPlan {
-    
+
+    private List<Prostor> seznamProstoru;
     private Prostor aktualniProstor;
     private Prostor vyherniProstor;
     private InsanityMeter insanityMeter;
@@ -21,12 +25,11 @@ public class HerniPlan {
 
 
      /**
-     *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
-     *  Jako výchozí aktuální prostor nastaví domecek.
+     *  Konstruktor, jež pouze zavolá metodu zalozProstoryHry().
      */
     public HerniPlan() {
+        seznamProstoru = new ArrayList<>();
         zalozProstoryHry();
-
     }
 
     /**
@@ -46,28 +49,31 @@ public class HerniPlan {
         Prostor knihovna = new Prostor("knihovna", "menší místnost plná knih všech velikostí a barev");
         Prostor pristenek = new Prostor("přístěnek", "malá kouzelná místnůstka, schovávající se pod schody do patra");
         Prostor prvniPatro = new Prostor("1.patro", "nábytkem zcela zablokovaná část sídla, kam se nedá dostat");
-        
+
+        //vloží všechny prostory do seznamu prostorů
+        vlozProstor(dvereVen);
+        vlozProstor(foyer);
+        vlozProstor(jidelna);
+        vlozProstor(kuchyn);
+        vlozProstor(sklep);
+        vlozProstor(chodba);
+        vlozProstor(loznice);
+        vlozProstor(studovna);
+        vlozProstor(knihovna);
+        vlozProstor(pristenek);
+        vlozProstor(prvniPatro);
+
         // přiřazují se průchody mezi prostory (sousedící prostory)
-        foyer.setVychod(dvereVen);
-        foyer.setVychod(jidelna);
-        foyer.setVychod(studovna);
-        foyer.setVychod(chodba);
-        studovna.setVychod(foyer);
-        studovna.setVychod(knihovna);
-        knihovna.setVychod(studovna);
-        jidelna.setVychod(kuchyn);
-        jidelna.setVychod(foyer);
+        foyer.setVychody(List.of(new Prostor[]{dvereVen, jidelna, studovna, chodba, prvniPatro}));
+        jidelna.setVychody(List.of(new Prostor[]{kuchyn, foyer}));
         kuchyn.setVychod(jidelna);
-        chodba.setVychod(foyer);
-        chodba.setVychod(loznice);
-        chodba.setVychod(sklep);
-        foyer.setVychod(prvniPatro);
-        prvniPatro.setVychod(foyer);
-        chodba.setVychod(pristenek);
-        pristenek.setVychod(chodba);
-        loznice.setVychod(chodba);
         sklep.setVychod(chodba);
-        sklep.setVychod(kuchyn);
+        chodba.setVychody(List.of(new Prostor[]{foyer, loznice, sklep, pristenek}));
+        loznice.setVychod(chodba);
+        studovna.setVychody(List.of(new Prostor[]{foyer, knihovna}));
+        knihovna.setVychod(studovna);
+        pristenek.setVychod(chodba);
+        prvniPatro.setVychod(foyer);
 
         // určení počátečního a výherního prostoru
         aktualniProstor = loznice;
@@ -117,11 +123,29 @@ public class HerniPlan {
         // nastavení úrovně zbláznění
         insanityMeter = new InsanityMeter(0);
     }
-    
+
+    /**
+     * metoda vkládá prostor do seznamu prostorů
+     *
+     * @param prostor nový prostor ke vložení do seznamu
+     */
+    private void vlozProstor(Prostor prostor) {
+        seznamProstoru.add(prostor);
+    }
+
+    /**
+     * metoda vrací odkaz na seznam všech prostorů ve hře
+     *
+     * @return  seznam všech prostorů
+     */
+    public List<Prostor> getSeznamProstoru() {
+        return seznamProstoru;
+    }
+
     /**
      *  Metoda vrací odkaz na aktuální prostor, ve ktetém se hráč právě nachází.
      *
-     *@return     aktuální prostor
+     * @return  aktuální prostor
      */
     public Prostor getAktualniProstor() {
         return aktualniProstor;

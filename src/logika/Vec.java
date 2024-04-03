@@ -71,7 +71,6 @@ public class Vec {
     public Vec(String nazev, boolean prenositelna, boolean vypacitelna, boolean schovana) {
         this.nazev = nazev;
         this.prenositelna = prenositelna;
-        this.velikost = velikost;
         this.vypacitelna = vypacitelna;
         this.schovana = schovana;
     }
