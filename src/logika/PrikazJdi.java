@@ -1,11 +1,13 @@
 package logika;
 
 /**
- *  Třída PrikazJdi implementuje pro hru příkaz jdi.
- *  Tato třída je součástí jednoduché textové hry.
- *  
- *@author   Jakub Hřebíček
- *@version  1.1 2024/03/23
+ * Třída PrikazJdi implementuje pro hru příkaz jdí.
+ * Tato třída je součástí jednoduché textové hry.
+ * Zavolání tohoto příkazu přesune hráče do sousední místnosti, pokud je příkaz úspěšný.
+ * Pokud ne, vrátí příslušnou chybovou hlášku.
+ *
+ * @author   Jakub Hřebíček
+ * @version  v1.8 2024/04/04
  */
 public class PrikazJdi implements IPrikaz {
     private static final String NAZEV = "jdi";
@@ -15,21 +17,21 @@ public class PrikazJdi implements IPrikaz {
     /**
     *  Konstruktor třídy
     *  
-    *  @param hra instance třídy hry, ve které se bude ve hře "chodit"
+    *  @param hra instance třídy Hra, ve které se bude ve hře "chodit"
+     * @param plan instance třídy HerniPlan, obsahující prostory a východy ve hře
     */    
-    public PrikazJdi(Hra hra) {
+    public PrikazJdi(Hra hra, HerniPlan plan) {
         this.hra = hra;
-        this.plan = hra.getHerniPlan();
+        this.plan = plan;
     }
 
     /**
-     *  Provádí příkaz "jdi". Zkouší se vyjít do zadaného prostoru. Pokud prostor
-     *  existuje, vstoupí se do nového prostoru. Pokud zadaná sousední místnost
-     *  (východ) není, vypíše se chybové hlášení.
+     * Provádí příkaz "jdi". Zkouší se jít do zadaného prostoru. Pokud prostor
+     * existuje, vstoupí se do nového prostoru. Pokud zadaná sousední místnost
+     * (východ) není, vypíše se chybové hlášení.
      *
-     *@param parametry - jako  parametr obsahuje jméno prostoru (východu),
-     *                         do kterého se má jít.
-     *@return zpráva, kterou vypíše hra hráči
+     * @param parametry - přijímá parametr jméno prostoru (východu), do kterého se má jít.
+     * @return zpráva, kterou vypíše hra hráči
      */ 
     @Override
     public String provedPrikaz(String... parametry) {
@@ -57,7 +59,7 @@ public class PrikazJdi implements IPrikaz {
 
         if (plan.getInsanityMeter().getUrovenZblazneni() >= 5) {
             hra.setEpilog("Ticho a samota v sídle tě přivedly k šílenství, prohrál jsi tuto hru.");
-            hra.setKonecHry(true);
+            hra.setKonecHry();
             return "";
         }
 
@@ -69,7 +71,7 @@ public class PrikazJdi implements IPrikaz {
         plan.setAktualniProstor(sousedniProstor);
         if (plan.getAktualniProstor().equals(plan.getVyherniProstor())) {
             hra.setEpilog("Gratuluji, vyhrál jsi hru!");
-            hra.setKonecHry(true);
+            hra.setKonecHry();
             return "";
         }
 
@@ -78,9 +80,9 @@ public class PrikazJdi implements IPrikaz {
     }
     
     /**
-     *  Metoda vrací název příkazu (slovo které používá hráč pro jeho vyvolání)
+     * Metoda vrátí název příkazu (slovo které používá hráč pro jeho vyvolání)
      *  
-     *  @ return nazev prikazu
+     * @return název příkazu
      */
     @Override
     public String getNazev() {

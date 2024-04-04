@@ -1,35 +1,31 @@
 package logika;
 
 /**
- *  Třída PrikazNapoveda implementuje pro hru příkaz napoveda.
- *  Tato třída je součástí jednoduché textové hry.
- *  
- *@author     Jarmila Pavlickova, Luboš Pavlíček
- *@version    pro školní rok 2016/2017
- *  
+ * Třída PrikazNapoved implementuje pro hru příkaz nápověd.
+ * Tato třída je součástí jednoduché textové hry.
+ * Zavolání tohoto příkazu vypíše cíl hry a seznam použitelných příkazů.
+ *
+ * @author   Jakub Hřebíček
+ * @version  v1.8 2024/04/04
  */
 public class PrikazNapoveda implements IPrikaz {
-    
     private static final String NAZEV = "nápověda";
     private SeznamPrikazu platnePrikazy;
     
-    
-     /**
+    /**
     *  Konstruktor třídy
     *  
-    *  @param platnePrikazy seznam příkazů,
-    *                       které je možné ve hře použít,
-    *                       aby je nápověda mohla zobrazit uživateli. 
+    *  @param platnePrikazy seznam příkazů, které je možné ve hře použít
     */    
     public PrikazNapoveda(SeznamPrikazu platnePrikazy) {
         this.platnePrikazy = platnePrikazy;
     }
     
     /**
-     *  Vrací základní nápovědu po zadání příkazu "napoveda". Nyní se vypisuje
-     *  vcelku primitivní zpráva a seznam dostupných příkazů.
+     *  Vrací základní nápovědu po zadání příkazu "nápověda".
+     *  Vypíše způsob, jak lze vyhrát hru a seznam dostupných příkazů.
      *  
-     *  @return napoveda ke hre
+     *  @return nápověda ke hře
      */
     @Override
     public String provedPrikaz(String... parametry) {
@@ -47,7 +43,7 @@ public class PrikazNapoveda implements IPrikaz {
      /**
      *  Metoda vrací název příkazu (slovo které používá hráč pro jeho vyvolání)
      *  
-     *  @ return nazev prikazu
+     *  @return název příkazu
      */
     @Override
       public String getNazev() {

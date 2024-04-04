@@ -30,7 +30,7 @@ public class PrikazPrecti implements IPrikaz {
             return nazevVeci + " nemáš u sebe v kapsách...";
         }
 
-        if (!plan.getKapsy().vyberVec(nazevVeci).isCitelna()) {
+        if (!plan.getKapsy().getVec(nazevVeci).isCitelna()) {
             return nazevVeci + " nejde přečíst.";
         }
 

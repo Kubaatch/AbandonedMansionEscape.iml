@@ -28,7 +28,7 @@ public class PrikazSnez implements IPrikaz {
             return jidlo + " nemáš u sebe v kapsách...";
         }
 
-        if (!plan.getKapsy().vyberVec(jidlo).isJedla()) {
+        if (!plan.getKapsy().getVec(jidlo).isJedla()) {
             return "Sníst " + jidlo + " by pro tebe nedopadlo úplně dobře.";
         }
 

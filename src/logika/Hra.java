@@ -3,13 +3,13 @@ package logika;
 /**
  *  Třída Hra - třída představující logiku adventury.
  * 
- *  Toto je hlavní třída  logiky aplikace.  Tato třída vytváří instanci třídy HerniPlan, která inicializuje mistnosti hry
+ *  Toto je hlavní třída logiky aplikace. Tato třída vytváří instanci třídy HerniPlan, která inicializuje prostory hry
  *  a vytváří seznam platných příkazů a instance tříd provádějící jednotlivé příkazy.
  *  Vypisuje uvítací a ukončovací text hry.
  *  Také vyhodnocuje jednotlivé příkazy zadané uživatelem.
  *
- *@author   Jakub Hřebíček
- *@version  1.1 2024/03/23
+ * @author    Jakub Hřebíček
+ * @version   v1.8 2024/04/04
  */
 
 public class Hra implements IHra {
@@ -19,13 +19,13 @@ public class Hra implements IHra {
     private String epilog = "Dík že jste si zahráli, ahoj.";
 
     /**
-     *  Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
+     *  Vytváří herní plán a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
      */
     public Hra() {
         herniPlan = new HerniPlan();
         platnePrikazy = new SeznamPrikazu();
         platnePrikazy.vlozPrikaz(new PrikazInfo(herniPlan));
-        platnePrikazy.vlozPrikaz(new PrikazJdi(this));
+        platnePrikazy.vlozPrikaz(new PrikazJdi(this, herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazKonec(this));
         platnePrikazy.vlozPrikaz(new PrikazNapoveda(platnePrikazy));
         platnePrikazy.vlozPrikaz(new PrikazPoloz(herniPlan));
@@ -80,7 +80,7 @@ public class Hra implements IHra {
         String slovoPrikazu = slova[0];
         String []parametry = new String[slova.length-1];
         for(int i=0 ;i<parametry.length;i++){
-           	parametry[i]= slova[i+1];  	
+           	parametry[i] = slova[i+1];
         }
         String textKVypsani;
         if (platnePrikazy.jePlatnyPrikaz(slovoPrikazu)) {
@@ -94,26 +94,29 @@ public class Hra implements IHra {
     }
     
     
-     /**
-     *  Nastaví, že je konec hry, metodu využívá třída PrikazKonec,
-     *  mohou ji použít i další implementace rozhraní Prikaz.
-     *  
-     *  @param  konecHry  hodnota false= konec hry, true = hra pokračuje
+    /**
+     * Nastaví, že je konec hry (hodnota konecHry = true).
+     * Metodu využívá třída PříkazKonec (vynucené ukončení) a PříkazJdi (výhra/prohra ve hře)
      */
-    void setKonecHry(boolean konecHry) {
-        this.konecHry = konecHry;
+    void setKonecHry() {
+        this.konecHry = true;
     }
     
-     /**
+    /**
      *  Metoda vrátí odkaz na herní plán, je využita hlavně v testech,
      *  kde se jejím prostřednictvím získává aktualní místnost hry.
-     *  
+     *
      *  @return     odkaz na herní plán
      */
-     public HerniPlan getHerniPlan(){
+    public HerniPlan getHerniPlan(){
         return herniPlan;
      }
 
+    /**
+     * Metoda slouží pro změnu epilogu, což je využito při různých koncích hry.
+     *
+     * @param epilog vstupní String který je nastaven jako nový epilog
+     */
     public void setEpilog(String epilog) {
         this.epilog = epilog;
     }

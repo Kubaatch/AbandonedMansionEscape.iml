@@ -1,18 +1,15 @@
 package logika;
 
 /**
- *  Třída PrikazKonec implementuje pro hru příkaz konec.
- *  Tato třída je součástí jednoduché textové hry.
- *  
- *@author     Jarmila Pavlickova
- *@version    pro školní rok 2016/2017
- *  
+ * Třída PrikazKonec implementuje pro hru příkaz konec.
+ * Tato třída je součástí jednoduché textové hry.
+ * Zavolání tohoto příkazu okamžitě ukončí hru a vypíše epilog.
+ *
+ * @author   Jakub Hřebíček
+ * @version  v1.8 2024/04/04
  */
-
 public class PrikazKonec implements IPrikaz {
-
     private static final String NAZEV = "konec";
-
     private Hra hra;
 
     /**
@@ -30,22 +27,21 @@ public class PrikazKonec implements IPrikaz {
      * 
      * @return zpráva, kterou vypíše hra hráči
      */
-
     @Override
     public String provedPrikaz(String... parametry) {
         if (parametry.length > 0) {
             return "Napsal jsi toho nějak moc. Stačí napsat jen 'konec'";
         }
         else {
-            hra.setKonecHry(true);
+            hra.setKonecHry();
             return "hra ukončena příkazem konec";
         }
     }
 
     /**
-     *  Metoda vrací název příkazu (slovo které používá hráč pro jeho vyvolání)
+     * Metoda vrací název příkazu (slovo které používá hráč pro jeho vyvolání)
      *  
-     *  @ return nazev prikazu
+     * @return název příkazu
      */
     @Override
     public String getNazev() {
