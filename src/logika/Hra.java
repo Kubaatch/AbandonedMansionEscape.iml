@@ -24,6 +24,7 @@ public class Hra implements IHra {
     public Hra() {
         herniPlan = new HerniPlan();
         platnePrikazy = new SeznamPrikazu();
+        platnePrikazy.vlozPrikaz(new PrikazInfo(herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazJdi(this));
         platnePrikazy.vlozPrikaz(new PrikazKonec(this));
         platnePrikazy.vlozPrikaz(new PrikazNapoveda(platnePrikazy));
@@ -34,6 +35,7 @@ public class Hra implements IHra {
         platnePrikazy.vlozPrikaz(new PrikazSnez(herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazSpanek(herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazTancuj(herniPlan));
+        platnePrikazy.vlozPrikaz(new PrikazTeleport(herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazVypac(herniPlan));
     }
 

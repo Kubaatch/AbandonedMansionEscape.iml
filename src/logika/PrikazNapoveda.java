@@ -37,10 +37,11 @@ public class PrikazNapoveda implements IPrikaz {
             return "Napsal jsi toho nějak moc. Stačí napsat jen 'nápověda'";
         }
 
-        return "Tvým úkolem je najít klíč, který ti odemkne dveře ven z tohoto sídla.\n"
-        + "\n"
-        + "Můžeš zadat tyto příkazy:\n"
-        + platnePrikazy.vratNazvyPrikazu();
+        return """
+        Tvým úkolem je najít klíč, který ti odemkne dveře ven z tohoto sídla.
+        
+        Můžeš zadat tyto příkazy:
+        """ + platnePrikazy.vratNazvyPrikazu();
     }
     
      /**
