@@ -1,7 +1,5 @@
 package logika;
 
-import java.util.Random;
-
 public class PrikazSpanek implements IPrikaz {
     private static final String NAZEV = "spinkej";
     private HerniPlan plan;
@@ -16,13 +14,13 @@ public class PrikazSpanek implements IPrikaz {
             return "Tady se nemůžeš vyspat. Dost možná tu straší...\uD83D\uDC7B";
         }
 
-        int aktualni = plan.getSanityMeter().getUrovenZblazneni();
+        int aktualni = plan.getInsanityMeter().getUrovenZblazneni();
 
-        plan.getSanityMeter().setUrovenZblazneni(aktualni-2);
+        plan.getInsanityMeter().setUrovenZblazneni(aktualni-2);
 
-        if (plan.getSanityMeter().getUrovenZblazneni() < 0) {plan.getSanityMeter().setUrovenZblazneni(0);}
+        if (plan.getInsanityMeter().getUrovenZblazneni() < 0) {plan.getInsanityMeter().setUrovenZblazneni(0);}
 
-        return "Na chvilku sis schrupnul, zlepšilo ti to náladu...\uD83D\uDC7B";
+        return "Na chvilku sis schrupnul, zlepšilo ti to náladu...";
     }
 
     @Override

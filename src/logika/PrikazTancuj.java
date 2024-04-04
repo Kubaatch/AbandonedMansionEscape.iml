@@ -12,7 +12,7 @@ public class PrikazTancuj implements IPrikaz {
 
     @Override
     public String provedPrikaz(String[] parametry) {
-        plan.getSanityMeter().setUrovenZblazneni(0);
+        plan.getInsanityMeter().setUrovenZblazneni(0);
         return "Vesele sis zatancoval/a, máš teď mnohem lepší náladu :)";
     }
 

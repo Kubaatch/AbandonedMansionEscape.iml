@@ -168,7 +168,7 @@ public class HerniPlan {
         return kapsy;
     }
 
-    public InsanityMeter getSanityMeter() {
+    public InsanityMeter getInsanityMeter() {
         return insanityMeter;
     }
 }
