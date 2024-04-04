@@ -12,20 +12,18 @@ import java.util.List;
  *  a pamatuje si výherní prostor a aktuální prostor, ve kterém se hráč právě nachází.
  *
  *@author     Jakub Hřebíček
- *@version    1.1 2024/03/23
+ *@version    v1.8 2024/04/04
  */
 public class HerniPlan {
-
     private List<Prostor> seznamProstoru;
     private Prostor aktualniProstor;
     private Prostor vyherniProstor;
     private InsanityMeter insanityMeter;
     private Kapsy kapsy;
-    private final int KAPACITA_KAPES = 4;
-
+    private static final int KAPACITA_KAPES = 4;
 
      /**
-     *  Konstruktor, jež pouze zavolá metodu zalozProstoryHry().
+     *  Konstruktor třídy, volá metodu zalozProstoryHry().
      */
     public HerniPlan() {
         seznamProstoru = new ArrayList<>();
@@ -33,11 +31,12 @@ public class HerniPlan {
     }
 
     /**
-     *  Vytváří jednotlivé prostory a propojuje je pomocí východů.
-     *  Jako výchozí aktuální prostor nastaví ložnici.
+     *  Vytváří jednotlivé prostory, vkládá je do seznamu prostorů a propojuje je pomocí východů
+     *  Jako výchozí aktuální prostor nastaví ložnici, jako výherní prostor nastaví dvereVen.
+     *  Do prostorů vloží věci, vytvoří kapsy a inicializuje úroveň zbláznění.
      */
     private void zalozProstoryHry() {
-        // vytvářejí se jednotlivé prostory
+        // vytváří se jednotlivé prostory
         Prostor dvereVen = new Prostor("východ","masivní dubové dveře se zrezlou klíčovou dírkou", true);
         Prostor foyer = new Prostor("foyer", "vstupní místnost s prachem pokrytými soškami");
         Prostor jidelna = new Prostor("jídelna","jediným kusem nábytku je zde starý mahagonový stůl");
@@ -50,7 +49,7 @@ public class HerniPlan {
         Prostor pristenek = new Prostor("přístěnek", "malá kouzelná místnůstka, schovávající se pod schody do patra");
         Prostor prvniPatro = new Prostor("1.patro", "nábytkem zcela zablokovaná část sídla, kam se nedá dostat");
 
-        //vloží všechny prostory do seznamu prostorů
+        // prostory se vkládají do seznamu prostorů
         vlozProstor(dvereVen);
         vlozProstor(foyer);
         vlozProstor(jidelna);
@@ -63,7 +62,7 @@ public class HerniPlan {
         vlozProstor(pristenek);
         vlozProstor(prvniPatro);
 
-        // přiřazují se průchody mezi prostory (sousedící prostory)
+        // vytváří se východy z prostorů (sousedící prostory)
         foyer.setVychody(List.of(new Prostor[]{dvereVen, jidelna, studovna, chodba, prvniPatro}));
         jidelna.setVychody(List.of(new Prostor[]{kuchyn, foyer}));
         kuchyn.setVychod(jidelna);
@@ -79,7 +78,7 @@ public class HerniPlan {
         aktualniProstor = loznice;
         vyherniProstor = dvereVen;
 
-        //vložení věcí do místností
+        //vkládají se věci do místností
         foyer.vlozVec(new Vec("zdobená_váza", false, false));
         foyer.vlozVec(new Vec("deštník", true, 2));
         foyer.vlozVec(new Vec("lucerna", true, 1));
@@ -117,7 +116,7 @@ public class HerniPlan {
         //schová prkno_v_podlaze, neobjevuje se pak ve výpisu věcí v místnosti
         sklep.vyberVec("prkno_v_podlaze").setSchovanost(true);
 
-        //vytvoření kapes
+        //vytváří se kapsy
         kapsy = new Kapsy(KAPACITA_KAPES);
         Vec rizek = new Vec("řízek_v_alobalu", true, 1, true);
         kapsy.vlozDoKapes(rizek);
@@ -144,6 +143,12 @@ public class HerniPlan {
         return seznamProstoru;
     }
 
+    /**
+     * metoda vrací odkaz na jeden konkrétní prostor
+     *
+     * @param nazev název hledaného prostoru
+     * @return odkaz na hledaný prostor, null pokud prostor neexistuje
+     */
     public Prostor getProstor(String nazev) {
         for (Prostor prostor : seznamProstoru) {
             if (prostor.getNazev().equals(nazev)) {
@@ -172,14 +177,29 @@ public class HerniPlan {
        aktualniProstor = prostor;
     }
 
+    /**
+     * Metoda vrací odkaz na výherní prostor.
+     *
+     * @return  výherní prostor
+     */
     public Prostor getVyherniProstor() {
         return vyherniProstor;
     }
 
+    /**
+     * metoda vrací odkaz na kapsy
+     *
+     * @return kapsy
+     */
     public Kapsy getKapsy() {
         return kapsy;
     }
 
+    /**
+     * metoda vrací odkaz na instanci třídy InsanityMeter
+     *
+     * @return insanityMeter
+     */
     public InsanityMeter getInsanityMeter() {
         return insanityMeter;
     }
