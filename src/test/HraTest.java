@@ -151,7 +151,7 @@ public class HraTest {
         assertEquals("""
                 Popis místnosti 'sklep': tmavé podzemní prostory, kde může číhat cokoliv.
                 sousední místnosti: chodba
-                věci v místnosti: zamčená_skříň zrezivělý_zámek lopata valcha rezavý_klíč
+                věci v místnosti: zamčená_skříň zrezivělý_zámek lopata valcha prkno_v_podlaze
                 Obsah kapes: řízek_v_alobalu páčidlo deník""", hra.zpracujPrikaz("jdi sklep"));
 
         // 16. krok vypač prkno_v_podlaze

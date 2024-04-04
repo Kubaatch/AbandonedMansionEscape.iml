@@ -94,8 +94,7 @@ public class HerniPlan {
         sklep.vlozVec(new Vec("zrezivělý_zámek", true, 1));
         sklep.vlozVec(new Vec("lopata", true, 2));
         sklep.vlozVec(new Vec("valcha", false, false));
-        sklep.vlozVec(new Vec("prkno_v_podlaze", false, true, true));
-        sklep.vlozVec(new Vec("rezavý_klíč", false, 1));
+        sklep.vlozVec(new Vec("prkno_v_podlaze", false, true));
         loznice.vlozVec(new Vec("královská_postel", false, false));
         loznice.vlozVec(new Vec("noční_stolek", false, true));
         loznice.vlozVec(new Vec("svíčka", true, 1));
@@ -114,6 +113,9 @@ public class HerniPlan {
         knihovna.vlozVec(new Vec("deník", true, true, 1));
         knihovna.vlozVec(new Vec("černá_kniha", true, true, 1));
         prvniPatro.vlozVec(new Vec("fakt_velká_hromada_nábytku", false, false));
+
+        //schová prkno_v_podlaze, neobjevuje se pak ve výpisu věcí v místnosti
+        sklep.vyberVec("prkno_v_podlaze").setSchovanost(true);
 
         //vytvoření kapes
         kapsy = new Kapsy(KAPACITA_KAPES);
@@ -140,6 +142,16 @@ public class HerniPlan {
      */
     public List<Prostor> getSeznamProstoru() {
         return seznamProstoru;
+    }
+
+    public Prostor getProstor(String nazev) {
+        for (Prostor prostor : seznamProstoru) {
+            if (prostor.getNazev().equals(nazev)) {
+                return prostor;
+            }
+        }
+
+        return null;
     }
 
     /**

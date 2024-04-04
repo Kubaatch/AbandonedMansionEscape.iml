@@ -41,6 +41,7 @@ public class PrikazPrecti implements IPrikaz {
                 vracenyText += TEXT_BIBLE;
                 break;
             case "deník":
+                plan.getProstor("sklep").vyberVec("prkno_v_podlaze").setSchovanost(false);
                 vracenyText += TEXT_DENIKU;
                 break;
             case "modrá_kniha":

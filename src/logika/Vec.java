@@ -61,20 +61,6 @@ public class Vec {
         this.velikost = velikost;
     }
 
-    /**
-     *
-     * @param nazev
-     * @param prenositelna
-     * @param vypacitelna
-     * @param schovana
-     */
-    public Vec(String nazev, boolean prenositelna, boolean vypacitelna, boolean schovana) {
-        this.nazev = nazev;
-        this.prenositelna = prenositelna;
-        this.vypacitelna = vypacitelna;
-        this.schovana = schovana;
-    }
-
     public String getNazev() {
         return nazev;
     }
