@@ -30,7 +30,7 @@ public class PrikazJdi implements IPrikaz {
      * existuje, vstoupí se do nového prostoru. Pokud zadaná sousední místnost
      * (východ) není, vypíše se chybové hlášení.
      *
-     * @param parametry - přijímá parametr jméno prostoru (východu), do kterého se má jít.
+     * @param parametry prostor, kam chce hráč jít
      * @return zpráva, kterou vypíše hra hráči
      */ 
     @Override

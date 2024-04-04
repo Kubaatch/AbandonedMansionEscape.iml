@@ -325,5 +325,17 @@ public class HraTest {
         assertEquals("Snědl jsi řízek_v_alobalu a moc ti chutnalo.", hra.zpracujPrikaz("sněz řízek_v_alobalu"));
     }
 
+    /**
+     * Test - PříkazTeleport
+     * kontroluje možnost teleportace a pomocí proměnné srovná výpis místnosti s aktuální místností
+     */
+    @Test
+    public void testTeleport() {
+        hra.zpracujPrikaz("jdi chodba");
+        hra.zpracujPrikaz("jdi přístěnek");
+
+        assertEquals(hra.zpracujPrikaz("teleport"), "S výpadkem paměti ses probudil v místnosti " + hra.getHerniPlan().getAktualniProstor().getNazev());
+    }
+
 }
 

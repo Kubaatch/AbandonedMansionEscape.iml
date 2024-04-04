@@ -1,20 +1,46 @@
 package logika;
 
+/**
+ * Třída PrikazPrecti implementuje pro hru příkaz přečti.
+ * Tato třída je součástí jednoduché textové hry.
+ * Zavolání tohoto příkazu vypíše text
+ *
+ * @author   Jakub Hřebíček
+ * @version  v1.8 2024/04/04
+ */
 public class PrikazPrecti implements IPrikaz {
 
     private static final String NAZEV = "přečti";
     private HerniPlan plan;
     private static final String UVOD_CTENI = "Uvnitř stojí: \n";
 
+    /**
+     * Metoda vrátí název příkazu (slovo které používá hráč pro jeho vyvolání)
+     *
+     * @return název příkazu
+     */
     @Override
     public String getNazev() {
         return NAZEV;
     }
 
+    /**
+     * Konstruktor třídy
+     *
+     * @param plan instance třídy HerniPlan, obsahující místnosti, věci a všechny jejich vlastnosti
+     */
     public PrikazPrecti(HerniPlan plan) {
         this.plan = plan;
     }
 
+    /**
+     * Provádí příkaz odemkni.
+     * Zkouší odemknout zamčený prostor
+     * kontroluje zda hráč má klíč a zda místnost je sousední a je zamčená.
+     *
+     * @param parametry předmět, který chce hráč přečíst
+     * @return zpráva, kterou vypíše hra hráči
+     */
     @Override
     public String provedPrikaz(String[] parametry) {
         if (parametry.length == 0) {
@@ -63,6 +89,7 @@ public class PrikazPrecti implements IPrikaz {
         return vracenyText;
     }
 
+    //text deníku byl vygenerován umělou inteligencí (chat.openai.com/chat)
     private static final String TEXT_DENIKU = """
             Na poslední stránce si objevil tento text:
             
@@ -72,7 +99,7 @@ public class PrikazPrecti implements IPrikaz {
             Doufám, že se tato informace stane užitečnou v době mé nepřítomnosti a umožní vám bezproblémový vstup do našeho domova.
 
             Bůh vám žehnej,
-            Hrabě Ignác Šlechtiprkno ze Šťastného Uvázaní"""; //výplod umělé inteligence
+            Hrabě Ignác Šlechtiprkno ze Šťastného Uvázaní""";
 
     private static final String TEXT_BIBLE = """
                 Genesis 1
@@ -88,6 +115,7 @@ public class PrikazPrecti implements IPrikaz {
             "Mojí milované Gertrudě a naší dceři Hermíně, bez níž by tato kniha byla vydaná o dva roky dříve."
             """;
 
+    // text zelené knihy byl zkopírován ze stránky csfd.cz (csfd.cz/film/2292-zelena-mile/prehled/)
     private static final String TEXT_ZELENA_KNIHA = """
             V roce 1932 se Amerika zmítala v otřesech velké krize a život se zdál být trpký a obtížný, jako ještě nikdy předtím.
             Příběh se odehrává ve věznici Cold Mountain, kam jsou transportováni odsouzenci na smrt.

@@ -16,7 +16,7 @@ public class PrikazInfo implements IPrikaz {
     /**
      * Konstruktor třídy
      *
-     * @param plan herní plán
+     * @param plan instance třídy HerniPlan, obsahující místnosti, věci a všechny jejich vlastnosti
      */
     public PrikazInfo(HerniPlan plan) {
         this.plan = plan;

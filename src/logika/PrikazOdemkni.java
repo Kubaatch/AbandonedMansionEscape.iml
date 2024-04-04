@@ -26,7 +26,7 @@ public class PrikazOdemkni implements IPrikaz {
      * Zkouší odemknout zamčený prostor
      * kontroluje zda hráč má klíč a zda místnost je sousední a je zamčená.
      *
-     * @param parametry počet parametrů závisí na konkrétním příkazu.
+     * @param parametry prostor, který chce hráč odemknout
      * @return zpráva, kterou vypíše hra hráči
      */
     @Override
