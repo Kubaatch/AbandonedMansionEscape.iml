@@ -10,56 +10,57 @@ public class Vec {
     private boolean schovana;
 
     /**
+     * Jeden z konstruktorů třídy, tento využívá parametry název a velikost
      *
-     * @param nazev
-     * @param prenositelna
-     * @param velikost
+     * @param nazev název věci
+     * @param velikost velikost věci, je využita při kontrole kapacity kapes
      */
-    public Vec(String nazev, boolean prenositelna, int velikost) {
+    public Vec(String nazev, int velikost) {
         this.nazev = nazev;
-        this.prenositelna = prenositelna;
+        prenositelna = true;
         this.velikost = velikost;
     }
 
     /**
+     * Jeden z konstruktorů třídy, tento využívá parametry název a vypáčitelná
      *
-     * @param nazev
-     * @param prenositelna
-     * @param vypacitelna
+     * @param nazev název věci
+     * @param vypacitelna true, pokud věc lze vypáčit, jinak false
      */
-    public Vec(String nazev, boolean prenositelna, boolean vypacitelna) {
+    public Vec(String nazev, boolean vypacitelna) {
         this.nazev = nazev;
-        this.prenositelna = prenositelna;
+        prenositelna = false;
         this.vypacitelna = vypacitelna;
     }
 
     /**
+     * Jeden z konstruktorů třídy, tento využívá parametry název, velikost a jedlá
      *
-     * @param nazev
-     * @param prenositelna
-     * @param velikost
-     * @param jedla
+     * @param nazev název věci
+     * @param velikost velikost věci, je využita při kontrole kapacity kapes
+     * @param jedla true, pokud věc lze sníst, jinak false
      */
-    public Vec(String nazev, boolean prenositelna, int velikost, boolean jedla) {
+    public Vec(String nazev, int velikost, boolean jedla) {
         this.nazev = nazev;
-        this.prenositelna = prenositelna;
+        prenositelna = true;
         this.velikost = velikost;
         this.jedla = jedla;
     }
 
     /**
+     * Jeden z konstruktorů třídy, tento využívá parametry název, čitelná a velikost
      *
-     * @param nazev
-     * @param prenositelna
-     * @param citelna
-     * @param velikost
+     * @param nazev název věci
+     * @param citelna true, pokud věc lze přečíst, jinak false
+     * @param velikost velikost věci, je využita při kontrole kapacity kapes
      */
-    public Vec(String nazev, boolean prenositelna, boolean citelna, int velikost) {
+    public Vec(String nazev, boolean citelna, int velikost) {
         this.nazev = nazev;
-        this.prenositelna = prenositelna;
+        prenositelna = true;
         this.citelna = citelna;
         this.velikost = velikost;
     }
+
 
     public String getNazev() {
         return nazev;
@@ -67,10 +68,6 @@ public class Vec {
 
     public boolean isPrenositelna() {
         return prenositelna;
-    }
-
-    public void setPrenositelna(boolean prenositelna) {
-        this.prenositelna = prenositelna;
     }
 
     public int getVelikost() {

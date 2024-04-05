@@ -155,7 +155,7 @@ public class HraTest {
                 Obsah kapes: řízek_v_alobalu páčidlo deník""", hra.zpracujPrikaz("jdi sklep"));
 
         // 16. krok vypač prkno_v_podlaze
-        assertEquals("Vypáčil/a jsi prkno v podlaze a zjistil/a, že pod ním leží \"rezavý_klíč\".", hra.zpracujPrikaz("vypač prkno_v_podlaze"));
+        assertEquals("Vypáčil/a jsi prkno_v_podlaze a našel/našla předmět rezavý_klíč", hra.zpracujPrikaz("vypač prkno_v_podlaze"));
 
         // 17. krok seber rezavý_klíč
         assertEquals("Sebral jsi rezavý_klíč", hra.zpracujPrikaz("seber rezavý_klíč"));

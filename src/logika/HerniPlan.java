@@ -79,46 +79,49 @@ public class HerniPlan {
         vyherniProstor = dvereVen;
 
         //vkládají se věci do místností
-        foyer.vlozVec(new Vec("zdobená_váza", false, false));
-        foyer.vlozVec(new Vec("deštník", true, 2));
-        foyer.vlozVec(new Vec("lucerna", true, 1));
-        jidelna.vlozVec(new Vec("keramický_střep", true, 1));
-        jidelna.vlozVec(new Vec("stůl", false, false));
-        kuchyn.vlozVec(new Vec("hrnec", true, 2));
-        kuchyn.vlozVec(new Vec("naběračka", true, 1));
-        kuchyn.vlozVec(new Vec("páčidlo", true, 1));
-        kuchyn.vlozVec(new Vec("plesnivý_sýr", true, 1, false));
-        kuchyn.vlozVec(new Vec("plísňový_sýr", true, 1, true));
-        sklep.vlozVec(new Vec("zamčená_skříň", false, true));
-        sklep.vlozVec(new Vec("zrezivělý_zámek", true, 1));
-        sklep.vlozVec(new Vec("lopata", true, 2));
-        sklep.vlozVec(new Vec("valcha", false, false));
-        sklep.vlozVec(new Vec("prkno_v_podlaze", false, true));
-        loznice.vlozVec(new Vec("královská_postel", false, false));
-        loznice.vlozVec(new Vec("noční_stolek", false, true));
-        loznice.vlozVec(new Vec("svíčka", true, 1));
-        chodba.vlozVec(new Vec("obraz", false, false));
-        chodba.vlozVec(new Vec("portrét", false, false));
-        chodba.vlozVec(new Vec("květináč", true, 1));
-        chodba.vlozVec(new Vec("kožené_boty", true, 2));
-        studovna.vlozVec(new Vec("křeslo", false, false));
-        studovna.vlozVec(new Vec("šachovnice", true, 2));
-        studovna.vlozVec(new Vec("gauč", false, false));
-        studovna.vlozVec(new Vec("truhla", false, true));
-        knihovna.vlozVec(new Vec("modrá_kniha", true, true,  1));
-        knihovna.vlozVec(new Vec("bible", true, true, 2));
-        knihovna.vlozVec(new Vec("zelená_kniha", true, true, 1));
-        knihovna.vlozVec(new Vec("kožená_kniha", true, true, 1));
-        knihovna.vlozVec(new Vec("deník", true, true, 1));
-        knihovna.vlozVec(new Vec("černá_kniha", true, true, 1));
-        prvniPatro.vlozVec(new Vec("fakt_velká_hromada_nábytku", false, false));
+        foyer.vlozVec(new Vec("zdobená_váza", false));
+        foyer.vlozVec(new Vec("deštník", 2));
+        foyer.vlozVec(new Vec("lucerna", 1));
+        jidelna.vlozVec(new Vec("keramický_střep", 1));
+        jidelna.vlozVec(new Vec("stůl", false));
+        kuchyn.vlozVec(new Vec("hrnec", 2));
+        kuchyn.vlozVec(new Vec("naběračka", 1));
+        kuchyn.vlozVec(new Vec("páčidlo", 1));
+        kuchyn.vlozVec(new Vec("plesnivý_sýr", 1));
+        kuchyn.vlozVec(new Vec("plísňový_sýr", 1, true));
+        sklep.vlozVec(new Vec("zamčená_skříň", true));
+        sklep.vlozVec(new Vec("zrezivělý_zámek", 1));
+        sklep.vlozVec(new Vec("lopata", 2));
+        sklep.vlozVec(new Vec("valcha", false));
+        sklep.vlozVec(new Vec("prkno_v_podlaze", true));
+        loznice.vlozVec(new Vec("královská_postel", false));
+        loznice.vlozVec(new Vec("noční_stolek", true));
+        loznice.vlozVec(new Vec("svíčka", 1));
+        chodba.vlozVec(new Vec("obraz", false));
+        chodba.vlozVec(new Vec("portrét", false));
+        chodba.vlozVec(new Vec("květináč", 1));
+        chodba.vlozVec(new Vec("kožené_boty", 2));
+        studovna.vlozVec(new Vec("křeslo", false));
+        studovna.vlozVec(new Vec("šachovnice", 2));
+        studovna.vlozVec(new Vec("gauč", false));
+        studovna.vlozVec(new Vec("truhla", true));
+        knihovna.vlozVec(new Vec("modrá_kniha", true,  1));
+        knihovna.vlozVec(new Vec("bible", true, 2));
+        knihovna.vlozVec(new Vec("zelená_kniha", true, 1));
+        knihovna.vlozVec(new Vec("kožená_kniha", true, 1));
+        knihovna.vlozVec(new Vec("deník", true, 1));
+        knihovna.vlozVec(new Vec("černá_kniha", true, 1));
+        prvniPatro.vlozVec(new Vec("fakt_velká_hromada_nábytku", false));
+        pristenek.vlozVec(new Vec("ořechy", 1, true));
+        pristenek.vlozVec(new Vec("sklenice_medu", 2, true));
+        pristenek.vlozVec(new Vec("kouzelnická_hůlka", 1));
 
         //schová prkno_v_podlaze, neobjevuje se pak ve výpisu věcí v místnosti
         sklep.vyberVec("prkno_v_podlaze").setSchovanost(true);
 
         //vytváří se kapsy
         kapsy = new Kapsy(KAPACITA_KAPES);
-        Vec rizek = new Vec("řízek_v_alobalu", true, 1, true);
+        Vec rizek = new Vec("řízek_v_alobalu", 1, true);
         kapsy.vlozDoKapes(rizek);
 
         // nastavení úrovně zbláznění
