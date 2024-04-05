@@ -4,16 +4,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Trida Prostor - popisuje jednotlivé prostory (místnosti) hry
- *
+ * Třída Prostor popisuje jednotlivé prostory (místnosti) hry.
  * Tato třída je součástí jednoduché textové hry.
- *
  * "Prostor" reprezentuje jedno místo (místnost, prostor, ..) ve scénáři hry.
  * Prostor může mít sousední prostory připojené přes východy. Pro každý východ
  * si prostor ukládá odkaz na sousedící prostor.
+ * Prostor může být zamčený, pokud se tak nastaví v boolean zamceny.
  *
- *@author   Jakub Hřebíček
- *@version  1.1 2024/03/23
+ * @author    Jakub Hřebíček
+ * @version   v1.8 2024/04/05
  */
 public class Prostor {
 
@@ -24,27 +23,32 @@ public class Prostor {
     private List<Vec> seznamVeci;
 
     /**
-     * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník
-     * před domem"
+     * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "sklep", "foyer"
      *
-     * @param nazev nazev prostoru, jednoznačný identifikátor, jedno slovo nebo
-     * víceslovný název bez mezer.
+     * @param nazev název prostoru, jednoznačný identifikátor, jedno slovo nebo víceslovný název bez mezer.
      * @param popis Popis prostoru.
+     * @param zamceny pokud je hodnota true, nelze do něj vstoupit
      */
     public Prostor(String nazev, String popis, boolean zamceny) {
         this.nazev = nazev;
         this.popis = popis;
         this.zamceny = zamceny;
         vychody = new HashSet<>();
-        seznamVeci = new ArrayList<Vec>();
+        seznamVeci = new ArrayList<>();
     }
 
+    /**
+     * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "sklep", "foyer"
+     *
+     * @param nazev název prostoru, jednoznačný identifikátor, jedno slovo nebo víceslovný název bez mezer.
+     * @param popis Popis prostoru.
+     */
     public Prostor(String nazev, String popis) {
         this.nazev = nazev;
         this.popis = popis;
         zamceny = false;
         vychody = new HashSet<>();
-        seznamVeci = new ArrayList<Vec>();
+        seznamVeci = new ArrayList<>();
     }
 
     /**
@@ -54,17 +58,21 @@ public class Prostor {
      * Druhé zadání stejného prostoru tiše přepíše předchozí zadání (neobjeví se
      * žádné chybové hlášení). Lze zadat též cestu ze do sebe sama.
      *
-     * @param vedlejsi prostor, který sousedi s aktualnim prostorem.
+     * @param vedlejsi prostor, který sousedí s aktuálním prostorem.
      *
      */
     public void setVychod(Prostor vedlejsi) {
         vychody.add(vedlejsi);
     }
 
+    /**
+     * Definuje východy z prostoru, narozdíl od metody setVychod
+     * přijímá list prostorů a ne pouze jeden prostor
+     *
+     * @param prostory prostory sousedící s aktuálním prostorem
+     */
     public void setVychody(List<Prostor> prostory) {
-        for (Prostor prostor : prostory) {
-            vychody.add(prostor);
-        }
+        vychody.addAll(prostory);
     }
 
     /**
@@ -87,10 +95,10 @@ public class Prostor {
         if (!(o instanceof Prostor)) {
             return false;    // pokud parametr není typu Prostor, vrátíme false
         }
-        // přetypujeme parametr na typ Prostor 
+        // přetypujeme parametr na typ Prostor
         Prostor druhy = (Prostor) o;
 
-        //metoda equals třídy java.util.Objects porovná hodnoty obou názvů. 
+        //metoda equals třídy java.util.Objects porovná hodnoty obou názvů.
         //Vrátí true pro stejné názvy a i v případě, že jsou oba názvy null,
         //jinak vrátí false.
 
@@ -125,9 +133,9 @@ public class Prostor {
 
     /**
      * Vrací "dlouhý" popis prostoru, který může vypadat následovně:
-     * Jsi v mistnosti/prostoru vstupni hala budovy VSE na Jiznim meste.
-     * vychody: chodba bufet ucebna
-     * veci: klic, skrinka, bomba
+     * Popis místnosti 'chodba': dlouhá rovná chodba, která vypadá jako z hororu.
+     * sousední místnosti: sklep foyer ložnice
+     * věci v místnosti: květináč obraz portrét
      *
      * @return Dlouhý popis prostoru
      */
@@ -138,7 +146,7 @@ public class Prostor {
 
     /**
      * Vrací textový řetězec, který popisuje sousední východy, například:
-     * "vychody: hala ".
+     * "sousední místnosti: chodba".
      *
      * @return Popis východů - názvů sousedních prostorů
      */
@@ -154,9 +162,10 @@ public class Prostor {
     }
 
     /**
-     * DOPLN POPIS
+     * Vrací textový řetězec, který popisuje věci v místnosti, například:
+     * "věci v místnosti: květináč obraz portrét".
      *
-     * @return
+     * @return Seznam věcí v místnosti
      */
     private String popisVeci() {
         String vracenyText = "věci v místnosti:";
@@ -193,27 +202,20 @@ public class Prostor {
     }
 
     /**
-     * Vrací kolekci obsahující prostory, se kterými tento prostor sousedí.
-     * Takto získaný seznam sousedních prostor nelze upravovat (přidávat,
-     * odebírat východy) protože z hlediska správného návrhu je to plně
-     * záležitostí třídy Prostor.
+     * Vloží věc do prostoru, tedy do List<Vec> jménem seznamVeci
      *
-     * @return Nemodifikovatelná kolekce prostorů (východů), se kterými tento
-     * prostor sousedí.
-     */
-    public Collection<Prostor> getVychody() {
-        return Collections.unmodifiableCollection(vychody);
-    }
-
-    /**
-     * DOPLN POPIS
-     *
-     * @param vec
+     * @param vec věc vkládaná do prostoru
      */
     public void vlozVec(Vec vec) {
         seznamVeci.add(vec);
     }
 
+    /**
+     * Kontroluje, zda prostor obsahuje věc a vrátí příslušnou boolean hodnotu
+     *
+     * @param nazevVeci věc, o které zjišťujeme, zda je v prostoru
+     * @return true pokud se věc nachází v prostoru, jinak false
+     */
     public boolean obsahujeVec(String nazevVeci) {
         for (Vec vec : seznamVeci) {
             if (vec.getNazev().equals(nazevVeci)) {
@@ -223,16 +225,21 @@ public class Prostor {
         return false;
     }
 
+    /**
+     * Odebere věc z prostoru.
+     *
+     * @param vybranaVec věc k odebrání z prostoru
+     */
     public void odeberVec(Vec vybranaVec) {
         seznamVeci.remove(vybranaVec);
     }
 
     /**
-     * metoda slouzi pro vybrani veci z mistnosti
-     * kontroluje jestli je vec v mistnosti, jestli je prenositelna a vrati prislusnou hodnotu
+     * metoda slouží pro vybrání věci z mistnosti
+     * kontroluje jestli je věc v místnosti a vrátí ji pokud ano
      *
-     * @param nazevVeci
-     * @return null pokud neni v mistnosti nebo je neprenositelna, jinak vrati vec
+     * @param nazevVeci věc k vybrání
+     * @return null pokud věc není v mistnosti, jinak vrátí věc
      */
     public Vec vyberVec(String nazevVeci) {
         Vec vybranaVec = null;
@@ -246,19 +253,21 @@ public class Prostor {
         return vybranaVec;
     }
 
-    public List<Vec> getSeznamVeci() {
-        return seznamVeci;
-    }
-
+    /**
+     * Metoda vrací boolean hodnotu, zda je prostor zamčený nebo ne.
+     *
+     * @return  true pokud je prostor zamčený, jinak false
+     */
     public boolean isZamceny() {
         return zamceny;
     }
 
+    /**
+     * Metoda nastaví zamčenost prostoru
+     *
+     * @param zamceny true/false hodnota, zda je prostor zamčený nebo odemčený
+     */
     public void setZamceny(boolean zamceny) {
         this.zamceny = zamceny;
-    }
-
-    private String getNazev(Prostor prostor) {
-        return nazev;
     }
 }

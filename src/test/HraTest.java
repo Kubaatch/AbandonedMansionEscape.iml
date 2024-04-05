@@ -207,6 +207,17 @@ public class HraTest {
     }
 
     /**
+     * Test - PříkazSeber, PříkazPolož
+     * kontroluje možnost sebrat a položit předměty
+     */
+    @Test
+    public void testSeberPoloz() {
+        assertEquals("Sebral jsi svíčka", hra.zpracujPrikaz("seber svíčka"));
+
+        assertEquals("Položil jsi svíčka do místnosti/prostoru ložnice", hra.zpracujPrikaz("polož svíčka"));
+    }
+
+    /**
      * Test - Kapacita, PříkazSeber
      * kontroluje různé výstupy po sebrání předmětu
      * sleduje plnost kapes: když jsou plné, nelze ukládat další předměty
@@ -223,17 +234,6 @@ public class HraTest {
 
         assertEquals("Snažíš se nacpat předmět květináč do plných kapes.", hra.zpracujPrikaz("seber květináč"));
         //nedovolí hráči přidat další předmět do kapes
-    }
-
-    /**
-     * Test - PříkazSeber, PříkazPolož
-     * kontroluje možnost sebrat a položit předměty
-     */
-    @Test
-    public void testSeberPoloz() {
-        assertEquals("Sebral jsi svíčka", hra.zpracujPrikaz("seber svíčka"));
-
-        assertEquals("Položil jsi svíčka do místnosti/prostoru ložnice", hra.zpracujPrikaz("polož svíčka"));
     }
 
     /**

@@ -6,7 +6,7 @@ package logika;
  * Zavoláním tohoto příkazu se hra pokusí odemknout místnost, jež hráč specifikoval v parametrech.
  *
  * @author   Jakub Hřebíček
- * @version  v1.8 2024/04/04
+ * @version  v1.8 2024/04/05
  */
 public class PrikazSeber implements IPrikaz {
     private static final String NAZEV = "seber";
@@ -39,11 +39,12 @@ public class PrikazSeber implements IPrikaz {
         }
 
         String nazevVeci = parametry[0];
-        if (!plan.getAktualniProstor().obsahujeVec(nazevVeci)) {
+
+        Vec pozadovanaVec = plan.getAktualniProstor().vyberVec(nazevVeci);
+        if (pozadovanaVec == null) {
             return nazevVeci + " se nenachází v tomto prostoru.";
         }
 
-        Vec pozadovanaVec = plan.getAktualniProstor().vyberVec(nazevVeci);
         if (!pozadovanaVec.isPrenositelna()) {
             return nazevVeci + " se nedá sebrat.";
         }
@@ -68,6 +69,4 @@ public class PrikazSeber implements IPrikaz {
     public String getNazev() {
         return NAZEV;
     }
-
-
 }
