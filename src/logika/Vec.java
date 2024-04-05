@@ -1,5 +1,14 @@
 package logika;
 
+/**
+ * Třída Vec popisuje jednotlivé předměty ve hře.
+ * Tato třída je součástí jednoduché textové hry.
+ * "Vec" reprezentuje jednu věc ve scénáři hry, může mít různé vlastnosti,
+ * např.: velikost, vypáčitelnost, čitelnost apod.
+ *
+ * @author    Jakub Hřebíček
+ * @version   v1.8 2024/04/05
+ */
 public class Vec {
     private String nazev;
     private boolean prenositelna;

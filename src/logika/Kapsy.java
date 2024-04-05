@@ -10,7 +10,7 @@ import java.util.List;
  * @version   v1.8 2024/04/04
  */
 public class Kapsy {
-    private final int kapacita;
+    private final int maxKapacita;
     private int vyuzitaKapacita;
     private List<Vec> obsahKapes;
 
@@ -20,7 +20,7 @@ public class Kapsy {
      * @param kapacita maximální množství věcí v kapsách
      */
     public Kapsy(int kapacita) {
-        this.kapacita = kapacita;
+        this.maxKapacita = kapacita;
         obsahKapes = new ArrayList<>();
     }
 
@@ -33,7 +33,7 @@ public class Kapsy {
      */
     public boolean vlozDoKapes(Vec vec) {
 
-        if (vyuzitaKapacita + vec.getVelikost() <= kapacita && vec.isPrenositelna()) {
+        if (vyuzitaKapacita + vec.getVelikost() <= maxKapacita && vec.isPrenositelna()) {
             obsahKapes.add(vec);
             vyuzitaKapacita += vec.getVelikost();
             return true;
@@ -107,5 +107,9 @@ public class Kapsy {
             }
         }
         return false;
+    }
+
+    public int getMaxKapacita() {
+        return vyuzitaKapacita;
     }
 }

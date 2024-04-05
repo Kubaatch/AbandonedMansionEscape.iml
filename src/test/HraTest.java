@@ -7,6 +7,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Třída HraTest slouží pro zjednodušené testování funkčnosti hry.
+ * Obsahuje několik testů, každý má vlastní konkrétní využití.
+ *
+ * @author    Jakub Hřebíček
+ * @version   v1.8 2024/04/05
+ */
 public class HraTest {
     private IHra hra;
 
@@ -187,34 +194,49 @@ public class HraTest {
     }
 
     /**
-     * Test - Přenositelnost, PříkazSeber
-     * kontroluje různé výstupy po sebrání předmětu
+     * Test - PříkazSeber, PříkazPolož, přenositelnost
+     * kontroluje různé výstupy po sebrání a položení předmětu
      * sleduje přenositelnost a existenci
      */
     @Test
-    public void testPrenositelnost() {
-        assertEquals("sv se nenachází v tomto prostoru.", hra.zpracujPrikaz("seber sv"));
+    public void testSeber() {
+        //chybný počet parametrů
+        assertEquals("Co chceš sebrat? Musíš zadat název předmětu...", hra.zpracujPrikaz("seber"));
+        assertEquals("Chceš toho sebrat nějak moc. Můžeš najednou sebrat jen jednu věc.", hra.zpracujPrikaz("seber x y"));
+
         //předmět neexistuje
+        assertEquals("sv se nenachází v tomto prostoru.", hra.zpracujPrikaz("seber sv"));
 
-        assertEquals("Sebral jsi svíčka", hra.zpracujPrikaz("seber svíčka"));
         //úspěch
+        assertEquals("Sebral jsi svíčka", hra.zpracujPrikaz("seber svíčka"));
 
-        assertEquals("svíčka se nenachází v tomto prostoru.", hra.zpracujPrikaz("seber svíčka"));
         //předmět byl sebrán, již neexistuje
+        assertEquals("svíčka se nenachází v tomto prostoru.", hra.zpracujPrikaz("seber svíčka"));
 
-        assertEquals("noční_stolek se nedá sebrat.", hra.zpracujPrikaz("seber noční_stolek"));
         //předmět nelze sebrat
+        assertEquals("noční_stolek se nedá sebrat.", hra.zpracujPrikaz("seber noční_stolek"));
     }
 
     /**
-     * Test - PříkazSeber, PříkazPolož
-     * kontroluje možnost sebrat a položit předměty
+     * Test - PříkazSeber, PříkazPolož, přenositelnost
+     * kontroluje různé výstupy po sebrání a položení předmětu
+     * sleduje přenositelnost a existenci
      */
     @Test
-    public void testSeberPoloz() {
-        assertEquals("Sebral jsi svíčka", hra.zpracujPrikaz("seber svíčka"));
+    public void testPoloz() {
+        //chybný počet parametrů
+        assertEquals("Co chceš položit? Musíš zadat název předmětu...", hra.zpracujPrikaz("polož"));
+        assertEquals("Chceš toho položit nějak moc. Můžeš najednou položit jen jednu věc.", hra.zpracujPrikaz("polož x y"));
 
+        //předmět neexistuje
+        assertEquals("xy nemáš v kapsách.", hra.zpracujPrikaz("polož xy"));
+
+        //úspěch
+        hra.zpracujPrikaz("seber svíčka");
         assertEquals("Položil jsi svíčka do místnosti/prostoru ložnice", hra.zpracujPrikaz("polož svíčka"));
+
+        //předmět byl sebrán, již neexistuje
+        assertEquals("svíčka nemáš v kapsách.", hra.zpracujPrikaz("polož svíčka"));
     }
 
     /**
@@ -228,11 +250,14 @@ public class HraTest {
         hra.zpracujPrikaz("seber svíčka");
         hra.zpracujPrikaz("jdi chodba");
         //zde kapacita 2 ze 4
+        assertEquals(2, hra.getHerniPlan().getKapsy().getMaxKapacita());
 
         assertEquals("Sebral jsi kožené_boty", hra.zpracujPrikaz("seber kožené_boty"));
         //zde kapacita 4 ze 4
+        assertEquals(4, hra.getHerniPlan().getKapsy().getMaxKapacita());
 
         assertEquals("Snažíš se nacpat předmět květináč do plných kapes.", hra.zpracujPrikaz("seber květináč"));
+        assertEquals(4, hra.getHerniPlan().getKapsy().getMaxKapacita());
         //nedovolí hráči přidat další předmět do kapes
     }
 
@@ -245,6 +270,7 @@ public class HraTest {
         //posune hráče blíže ke zbláznění
         hra.getHerniPlan().getInsanityMeter().setUrovenZblazneni(4);
 
+        //upozornění na blížící se zešílení
         assertEquals("""
                 Fuj! Leknul ses netopýra, který kolem tebe proletěl. Možná by ses měl něčím uklidnit.
                 Popis místnosti 'chodba': dlouhá rovná chodba, která vypadá jako z hororu.
@@ -257,15 +283,19 @@ public class HraTest {
         hra.getHerniPlan().getInsanityMeter().setUrovenZblazneni(4);
         hra.zpracujPrikaz("jdi ložnice");
 
+        //spánek sníží úroveň zbláznění
         assertEquals("Na chvilku sis schrupnul, zlepšilo ti to náladu...",hra.zpracujPrikaz("spinkej"));
         assertEquals(3, hra.getHerniPlan().getInsanityMeter().getUrovenZblazneni());
 
+        //tanec vynuluje úroveň zbláznění
         hra.zpracujPrikaz("tancuj");
         assertEquals(0, hra.getHerniPlan().getInsanityMeter().getUrovenZblazneni());
 
+        //úroveň zbláznění nemůže být nižší než 0
         hra.zpracujPrikaz("spinkej");
         assertEquals(0, hra.getHerniPlan().getInsanityMeter().getUrovenZblazneni());
 
+        //navýšení úrovně zbláznění o 1
         assertEquals("""
                 Popis místnosti 'chodba': dlouhá rovná chodba, která vypadá jako z hororu.
                 sousední místnosti: přístěnek ložnice sklep foyer
@@ -276,8 +306,8 @@ public class HraTest {
         //posune hráče na pokraj zbláznění
         hra.getHerniPlan().getInsanityMeter().setUrovenZblazneni(5);
 
+        //hráč prohrál hru, zešílel
         assertEquals("", hra.zpracujPrikaz("jdi sklep"));
-
         assertTrue(hra.konecHry());
         assertEquals("Ticho a samota v sídle tě přivedly k šílenství, prohrál jsi tuto hru.", hra.vratEpilog());
     }
@@ -289,21 +319,35 @@ public class HraTest {
      */
     @Test
     public void testPrikazy() {
+        //příkaz info
+        //chybný počet parametrů
+        assertEquals("Napsal jsi toho nějak moc...", hra.zpracujPrikaz("info x"));
+
+        //správný výpis příkazu
         assertEquals("""
                 Popis místnosti 'ložnice': starobylá místnost s prázdnými skříněmi a prasklým zrcadlem.
                 sousední místnosti: chodba
                 věci v místnosti: královská_postel noční_stolek svíčka
                 Obsah kapes: řízek_v_alobalu""", hra.zpracujPrikaz("info"));
 
+        //příkaz nápověda
+        //chybný počet parametrů
+        assertEquals("Napsal jsi toho nějak moc. Stačí napsat jen 'nápověda'", hra.zpracujPrikaz("nápověda x"));
+
+        //správný výpis příkazu
         assertEquals("""
                 Tvým úkolem je najít klíč, který ti odemkne dveře ven z tohoto sídla.
                                 
                 Můžeš zadat tyto příkazy:
                 polož nápověda teleport přečti spinkej tancuj sněz jdi vypač odemkni seber info konec\s""", hra.zpracujPrikaz("nápověda"));
 
+        //příkaz konec
+        //chybný počet parametrů
+        assertEquals("Napsal jsi toho nějak moc. Stačí napsat jen 'konec'", hra.zpracujPrikaz("konec x"));
+
+        //správný výpis příkazu
         assertEquals("hra ukončena příkazem konec", hra.zpracujPrikaz("konec"));
         assertTrue(hra.konecHry());
-
         assertEquals("Dík že jste si zahráli, ahoj.", hra.vratEpilog());
     }
 
@@ -313,15 +357,18 @@ public class HraTest {
      */
     @Test
     public void testPrikazSnez() {
+        //chybný počet parametrů
         assertEquals("Co chceš sníst? Musíš napsat co chceš sníst...", hra.zpracujPrikaz("sněz"));
-
         assertEquals("Chceš toho sníst nějak moc. Můžeš najednou sníst jen jednu věc.", hra.zpracujPrikaz("sněz x y"));
 
+        //hráč nemá předmět u sebe v kapsách
         assertEquals("x nemáš u sebe v kapsách...", hra.zpracujPrikaz("sněz x"));
 
+        //předmět nelze sníst
         hra.zpracujPrikaz("seber svíčka");
         assertEquals("Sníst svíčka by pro tebe nedopadlo úplně dobře.", hra.zpracujPrikaz("sněz svíčka"));
 
+        //správný výpis příkazu
         assertEquals("Snědl jsi řízek_v_alobalu a moc ti chutnalo.", hra.zpracujPrikaz("sněz řízek_v_alobalu"));
     }
 
@@ -334,6 +381,10 @@ public class HraTest {
         hra.zpracujPrikaz("jdi chodba");
         hra.zpracujPrikaz("jdi přístěnek");
 
+        //chybný počet parametrů
+        assertEquals("Napsal jsi toho nějak moc...", hra.zpracujPrikaz("teleport x"));
+
+        //správný výpis příkazu
         assertEquals(hra.zpracujPrikaz("teleport"), "S výpadkem paměti ses probudil v místnosti " + hra.getHerniPlan().getAktualniProstor().getNazev());
     }
 
