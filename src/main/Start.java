@@ -2,8 +2,9 @@
  * Kontrola kódování: Příliš žluťoučký kůň úpěl ďábelské ódy. */
 package main;
 
-import logika.*;
-import uiText.TextoveRozhrani;
+import logika.IHra;
+import logika.Hra;
+import uitext.TextoveRozhrani;
 
 /*******************************************************************************
  * Třída Start je hlavní třídou projektu,
@@ -22,7 +23,7 @@ public class Start
     public static void main(String[] args)
     {
         IHra hra = new Hra();
-        TextoveRozhrani ui = new TextoveRozhrani(hra);
-        ui.hraj();
+        TextoveRozhrani rozhrani = new TextoveRozhrani(hra);
+        rozhrani.hraj();
     }
 }

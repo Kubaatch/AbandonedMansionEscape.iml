@@ -88,7 +88,7 @@ public class Kapsy {
     public String dlouhyPopis() {
         StringBuilder vypis = new StringBuilder("Obsah kapes:");
         for (Vec vec : obsahKapes) {
-            vypis.append(" ").append(vec.getNazev());
+            vypis.append(' ').append(vec.getNazev());
         }
 
         return vypis.toString();

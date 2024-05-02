@@ -82,21 +82,21 @@ public class Prostor {
      *
      * Bližší popis metody equals je u třídy Object.
      *
-     * @param o object, který se má porovnávat s aktuálním
+     * @param obj object, který se má porovnávat s aktuálním
      * @return hodnotu true, pokud má zadaný prostor stejný název, jinak false
      */  
       @Override
-    public boolean equals(Object o) {
-        // porovnáváme zda se nejedná o dva odkazy na stejnou instanci
-        if (this == o) {
+    public boolean equals(Object obj) {
+        // porovnáváme zda se nejedná obj dva odkazy na stejnou instanci
+        if (this == obj) {
             return true;
         }
         // porovnáváme jakého typu je parametr 
-        if (!(o instanceof Prostor)) {
+        if (!(obj instanceof Prostor)) {
             return false;    // pokud parametr není typu Prostor, vrátíme false
         }
         // přetypujeme parametr na typ Prostor
-        Prostor druhy = (Prostor) o;
+        Prostor druhy = (Prostor) obj;
 
         //metoda equals třídy java.util.Objects porovná hodnoty obou názvů.
         //Vrátí true pro stejné názvy a i v případě, že jsou oba názvy null,
