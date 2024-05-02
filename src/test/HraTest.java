@@ -29,8 +29,10 @@ public class HraTest {
 
     /**
      * Test - scénář, ideální cesta
-     * kontroluje průběh hry a zda jde vyhrát
+     * Test - PříkazJdi, PříkazOdemkni, PříkazVypač
      * obsahuje seznam příkazů pro ideální (nejkratší) průběh hrou
+     * kontroluje průběh hry a zda jde vyhrát
+     * kontroluje správný průběh některých příkazů
      */
     @Test
     public void testScenar() {
@@ -194,9 +196,8 @@ public class HraTest {
     }
 
     /**
-     * Test - PříkazSeber, PříkazPolož, přenositelnost
-     * kontroluje různé výstupy po sebrání a položení předmětu
-     * sleduje přenositelnost a existenci
+     * Test - PříkazSeber, přenositelnost
+     * kontroluje různé výstupy po sebrání předmětu
      */
     @Test
     public void testSeber() {
@@ -218,9 +219,8 @@ public class HraTest {
     }
 
     /**
-     * Test - PříkazSeber, PříkazPolož, přenositelnost
-     * kontroluje různé výstupy po sebrání a položení předmětu
-     * sleduje přenositelnost a existenci
+     * Test - PříkazPolož
+     * kontroluje různé výstupy po položení předmětu
      */
     @Test
     public void testPoloz() {
@@ -388,5 +388,34 @@ public class HraTest {
         assertEquals(hra.zpracujPrikaz("teleport"), "S výpadkem paměti ses probudil v místnosti " + hra.getHerniPlan().getAktualniProstor().getNazev());
     }
 
+    /**
+     * Test - PříkazSpinkej
+     * kontroluje funkčnost příkazu spinkej a všechny možné výstupy
+     */
+    @Test
+    public void testSpinkej() {
+        //chybný počet parametrů
+        assertEquals("Napsal jsi toho nějak moc...", hra.zpracujPrikaz("spinkej x"));
+
+        //chybná místnost (ne ložnice)
+        hra.zpracujPrikaz("jdi chodba");
+        assertEquals("Tady se nemůžeš vyspat. Dost možná tu straší...\uD83D\uDC7B", hra.zpracujPrikaz("spinkej"));
+
+        //správný výpis příkazu
+        hra.zpracujPrikaz("jdi ložnice");
+        assertEquals("Na chvilku sis schrupnul, zlepšilo ti to náladu...", hra.zpracujPrikaz("spinkej"));
+    }
+
+    /**
+     * Test - PříkazTancuj
+     * kontroluje funkčnost příkazu tancuj a všechny možné výstupy
+     */
+    @Test
+    public void testTancuj() {
+        //chybný počet parametrů
+        assertEquals("Napsal jsi toho nějak moc...", hra.zpracujPrikaz("tancuj x"));
+
+        assertEquals("Vesele sis zatancoval/a, máš teď mnohem lepší náladu :)", hra.zpracujPrikaz("tancuj "));
+    }
 }
 
