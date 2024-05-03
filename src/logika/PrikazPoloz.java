@@ -9,7 +9,7 @@ import uitext.Strings;
  * Pokud hráč nesprávně zadá příkaz, třída vrátí příslušnou chybovou hlášku.
  *
  * @author   Jakub Hřebíček
- * @version  v1.8 2024/04/04
+ * @version   v2.0 2024/05/03
  */
 public class PrikazPoloz implements IPrikaz {
     private static final String NAZEV = "polož";

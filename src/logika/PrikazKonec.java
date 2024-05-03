@@ -8,7 +8,7 @@ import uitext.Strings;
  * Zavolání tohoto příkazu okamžitě ukončí hru a vypíše epilog.
  *
  * @author   Jakub Hřebíček
- * @version  v1.8 2024/04/04
+ * @version   v2.0 2024/05/03
  */
 public class PrikazKonec implements IPrikaz {
     private static final String NAZEV = "konec";

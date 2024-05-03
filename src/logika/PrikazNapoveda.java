@@ -8,7 +8,7 @@ import uitext.Strings;
  * Zavolání tohoto příkazu vypíše cíl hry a seznam použitelných příkazů.
  *
  * @author   Jakub Hřebíček
- * @version  v1.8 2024/04/04
+ * @version   v2.0 2024/05/03
  */
 public class PrikazNapoveda implements IPrikaz {
     private static final String NAZEV = "nápověda";

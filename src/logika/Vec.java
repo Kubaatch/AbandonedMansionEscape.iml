@@ -7,11 +7,11 @@ package logika;
  * např.: velikost, vypáčitelnost, čitelnost apod.
  *
  * @author    Jakub Hřebíček
- * @version   v1.8 2024/04/05
+ * @version   v2.0 2024/05/03
  */
 public class Vec {
-    private String nazev;
-    private boolean prenositelna;
+    private final String nazev;
+    private final boolean prenositelna;
     private int velikost;
     private boolean vypacitelna;
     private boolean jedla;

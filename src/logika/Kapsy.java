@@ -7,7 +7,7 @@ import java.util.List;
  * Parametr kapacita určuje, kolik předmětů lze do kapes vložit.
  *
  * @author    Jakub Hřebíček
- * @version   v1.8 2024/04/04
+ * @version   v2.0 2024/05/03
  */
 public class Kapsy {
     private final int maxKapacita;

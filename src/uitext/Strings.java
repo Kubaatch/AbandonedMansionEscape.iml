@@ -1,5 +1,15 @@
 package uitext;
 
+/**
+ * Třída Strings vytváří oddělený prostor pro inicializaci různých textů.
+ * Nachází se zde Stringy, které by v kódu byly nepřehledné
+ * a těžko dohledatelné, nebo se v kódu nacházejí vícekrát
+ * <p>
+ * Tato třída je součástí jednoduché textové hry.
+ *
+ * @author    Jakub Hřebíček
+ * @version   v2.0 2024/05/03
+ */
 public class Strings {
     public static final String UVOD = """
         Vítej!

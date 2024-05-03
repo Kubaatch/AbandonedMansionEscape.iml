@@ -5,17 +5,17 @@ import java.util.List;
 
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
- * 
+ *  <p>
  *  Tato třída inicializuje prvky ze kterých se hra skládá:
  *  vytváří všechny prostory, propojuje je vzájemně pomocí východů,
  *  vkládá do prostorů věci
  *  a pamatuje si výherní prostor a aktuální prostor, ve kterém se hráč právě nachází.
  *
  * @author    Jakub Hřebíček
- * @version   v1.8 2024/04/04
+ * @version   v2.0 2024/05/03
  */
 public class HerniPlan {
-    private List<Prostor> seznamProstoru;
+    private final List<Prostor> seznamProstoru;
     private Prostor aktualniProstor;
     private Prostor vyherniProstor;
     private InsanityMeter insanityMeter;

@@ -10,7 +10,7 @@ import java.util.Random;
  * Zavoláním tohoto příkazu se hráč přesune do náhodné místnosti na mapě.
  *
  * @author   Jakub Hřebíček
- * @version  v1.8 2024/04/05
+ * @version   v2.0 2024/05/03
  */
 public class PrikazTeleport implements IPrikaz {
     private static final String NAZEV = "teleport";

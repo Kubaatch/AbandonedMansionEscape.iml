@@ -8,7 +8,7 @@ import uitext.Strings;
  * Zavoláním tohoto příkazu se hra pokusí odemknout místnost, jež hráč specifikoval v parametrech.
  *
  * @author   Jakub Hřebíček
- * @version  v1.8 2024/04/04
+ * @version   v2.0 2024/05/03
  */
 public class PrikazOdemkni implements IPrikaz {
     private static final String NAZEV = "odemkni";

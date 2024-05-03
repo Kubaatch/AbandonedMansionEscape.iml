@@ -8,7 +8,7 @@ import uitext.Strings;
  * Zavoláním tohoto příkazu se hráč pokusí vypáčit předmět, jež specifikoval v parametrech.
  *
  * @author   Jakub Hřebíček
- * @version  v1.8 2024/04/05
+ * @version   v2.0 2024/05/03
  */
 public class PrikazVypac implements IPrikaz {
 

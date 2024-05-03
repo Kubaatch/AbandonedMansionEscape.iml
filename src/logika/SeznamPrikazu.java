@@ -9,15 +9,15 @@ import java.util.Map;
  *  a vrácení odkazu na třídu implementující konkrétní příkaz.
  *  Každý nový příkaz (instance implementující rozhraní Prikaz) se
  *  musí do seznamu přidat metodou vlozPrikaz.
- *
+ * <p>
  *  Tato třída je součástí jednoduché textové hry.
  *
  * @author    Jakub Hřebíček
- * @version   v1.8 2024/04/05
+ * @version   v2.0 2024/05/03
  */
 public class SeznamPrikazu {
     // mapa pro uložení přípustných příkazů
-    private  Map<String,IPrikaz> mapaSPrikazy;
+    private final Map<String,IPrikaz> mapaSPrikazy;
 
     /**
      * Konstruktor třídy
@@ -67,11 +67,11 @@ public class SeznamPrikazu {
      * @return Řetězec, který obsahuje seznam přípustných příkazů
      */
     public String vratNazvyPrikazu() {
-        String seznam = "";
+        StringBuilder seznam = new StringBuilder();
         for (String slovoPrikazu : mapaSPrikazy.keySet()){
-            seznam += slovoPrikazu + " ";
+            seznam.append(slovoPrikazu).append(" ");
         }
-        return seznam;
+        return seznam.toString();
     }
     
 }

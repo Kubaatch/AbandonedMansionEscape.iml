@@ -1,7 +1,6 @@
 package logika;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Třída Prostor popisuje jednotlivé prostory (místnosti) hry.
@@ -12,14 +11,14 @@ import java.util.stream.Collectors;
  * Prostor může být zamčený, pokud se tak nastaví v boolean zamceny.
  *
  * @author    Jakub Hřebíček
- * @version   v1.8 2024/04/05
+ * @version   v2.0 2024/05/03
  */
 public class Prostor {
 
-    private String nazev;
-    private String popis;
+    private final String nazev;
+    private final String popis;
     private boolean zamceny;
-    private Set<Prostor> vychody;   // obsahuje sousední místnosti
+    private final Set<Prostor> vychody;   // obsahuje sousední místnosti
     private List<Vec> seznamVeci;
 
     /**
@@ -79,7 +78,7 @@ public class Prostor {
      * Metoda equals pro porovnání dvou prostorů. Překrývá se metoda equals ze
      * třídy Object. Dva prostory jsou shodné, pokud mají stejný název. Tato
      * metoda je důležitá z hlediska správného fungování seznamu východů (Set).
-     *
+     * <p>
      * Bližší popis metody equals je u třídy Object.
      *
      * @param obj object, který se má porovnávat s aktuálním
@@ -151,14 +150,14 @@ public class Prostor {
      * @return Popis východů - názvů sousedních prostorů
      */
     private String popisVychodu() {
-        String vracenyText = "sousední místnosti:";
+        StringBuilder vracenyText = new StringBuilder("sousední místnosti:");
         for (Prostor sousedni : vychody) {
-            vracenyText += ' ' + sousedni.getNazev();
+            vracenyText.append(' ').append(sousedni.getNazev());
             if (sousedni.isZamceny()) {
-                vracenyText += "(zamčeno)\uD83D\uDD12";
+                vracenyText.append("(zamčeno)\uD83D\uDD12");
             }
         }
-        return vracenyText;
+        return vracenyText.toString();
     }
 
     /**
@@ -168,15 +167,15 @@ public class Prostor {
      * @return Seznam věcí v místnosti
      */
     private String popisVeci() {
-        String vracenyText = "věci v místnosti:";
+        StringBuilder vracenyText = new StringBuilder("věci v místnosti:");
         for (Vec vec : seznamVeci) {
             if (vec.isSchovana()) {
                 continue;
             }
-            vracenyText += " " + vec.getNazev();
+            vracenyText.append(" ").append(vec.getNazev());
         }
 
-        return vracenyText;
+        return vracenyText.toString();
     }
 
     /**
@@ -192,12 +191,12 @@ public class Prostor {
         List<Prostor>hledaneProstory = 
             vychody.stream()
                    .filter(sousedni -> sousedni.getNazev().equals(nazevSouseda))
-                   .collect(Collectors.toList());
+                   .toList();
         if(hledaneProstory.isEmpty()){
             return null;
         }
         else {
-            return hledaneProstory.get(0);
+            return hledaneProstory.getFirst();
         }
     }
 

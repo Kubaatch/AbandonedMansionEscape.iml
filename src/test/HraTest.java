@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Obsahuje několik testů, každý má vlastní konkrétní využití.
  *
  * @author    Jakub Hřebíček
- * @version   v1.8 2024/04/05
+ * @version   v2.0 2024/05/03
  */
 public class HraTest {
     private IHra hra;
