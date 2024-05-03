@@ -1,5 +1,7 @@
 package logika;
 
+import uitext.Strings;
+
 /**
  * Třída PrikazSpanek implementuje pro hru příkaz spinkej.
  * Tato třída je součástí jednoduché textové hry.
@@ -10,7 +12,7 @@ package logika;
  */
 public class PrikazSpanek implements IPrikaz {
     private static final String NAZEV = "spinkej";
-    private HerniPlan plan;
+    private final HerniPlan plan;
 
     /**
      * Konstruktor třídy
@@ -31,7 +33,7 @@ public class PrikazSpanek implements IPrikaz {
     @Override
     public String provedPrikaz(String[] parametry) {
         if (parametry.length > 0) {
-            return "Napsal jsi toho nějak moc...";
+            return Strings.CHYBA_MOC_TEXTU;
         }
 
         if (!plan.getAktualniProstor().getNazev().equals("ložnice")) {

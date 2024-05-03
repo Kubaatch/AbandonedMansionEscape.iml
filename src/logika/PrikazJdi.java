@@ -1,5 +1,7 @@
 package logika;
 
+import uitext.Strings;
+
 /**
  * Třída PrikazJdi implementuje pro hru příkaz jdí.
  * Tato třída je součástí jednoduché textové hry.
@@ -11,8 +13,8 @@ package logika;
  */
 public class PrikazJdi implements IPrikaz {
     private static final String NAZEV = "jdi";
-    private HerniPlan plan;
-    private Hra hra;
+    private final HerniPlan plan;
+    private final Hra hra;
 
     /**
     *  Konstruktor třídy
@@ -40,7 +42,7 @@ public class PrikazJdi implements IPrikaz {
             return "Kam chceš jít? Musíš zadat jméno východu";
         }
         if (parametry.length > 1) {
-            return "Napsal jsi toho nějak moc...";
+            return Strings.CHYBA_MOC_TEXTU;
         }
 
         String smer = parametry[0];
@@ -58,19 +60,19 @@ public class PrikazJdi implements IPrikaz {
 
 
         if (plan.getInsanityMeter().getUrovenZblazneni() >= 5) {
-            hra.setEpilog("Ticho a samota v sídle tě přivedly k šílenství, prohrál jsi tuto hru.");
+            hra.setEpilog(Strings.EPILOG_FAIL);
             hra.setKonecHry();
             return "";
         }
 
         String upozorneni = "";
         if (plan.getInsanityMeter().getUrovenZblazneni() == 4) {
-            upozorneni = "Fuj! Leknul ses netopýra, který kolem tebe proletěl. Možná by ses měl něčím uklidnit.\n";
+            upozorneni = Strings.UPOZORNENI_ZBLAZNENI;
         }
 
         plan.setAktualniProstor(sousedniProstor);
         if (plan.getAktualniProstor().equals(plan.getVyherniProstor())) {
-            hra.setEpilog("Gratuluji, vyhrál jsi hru!");
+            hra.setEpilog(Strings.EPILOG_WIN);
             hra.setKonecHry();
             return "";
         }

@@ -211,7 +211,7 @@ public class HraTest {
     public void testSeber() {
         //chybný počet parametrů
         assertEquals("Co chceš sebrat? Musíš zadat název předmětu...", hra.zpracujPrikaz("seber"));
-        assertEquals("Chceš toho sebrat nějak moc. Můžeš najednou sebrat jen jednu věc.", hra.zpracujPrikaz("seber x y"));
+        assertEquals("Napsal jsi toho nějak moc...", hra.zpracujPrikaz("seber x y"));
 
         //předmět neexistuje
         assertEquals("sv se nenachází v tomto prostoru.", hra.zpracujPrikaz("seber sv"));
@@ -234,7 +234,7 @@ public class HraTest {
     public void testPoloz() {
         //chybný počet parametrů
         assertEquals("Co chceš položit? Musíš zadat název předmětu...", hra.zpracujPrikaz("polož"));
-        assertEquals("Chceš toho položit nějak moc. Můžeš najednou položit jen jednu věc.", hra.zpracujPrikaz("polož x y"));
+        assertEquals("Napsal jsi toho nějak moc...", hra.zpracujPrikaz("polož x y"));
 
         //předmět neexistuje
         assertEquals("xy nemáš v kapsách.", hra.zpracujPrikaz("polož xy"));
@@ -325,6 +325,7 @@ public class HraTest {
      * kontroluje funkčnost jednoduchých jednorázových příkazů
      * sleduje zda se vypíše (správný) informující text
      */
+
     @Test
     public void testPrikazy() {
         //příkaz info
@@ -340,7 +341,7 @@ public class HraTest {
 
         //příkaz nápověda
         //chybný počet parametrů
-        assertEquals("Napsal jsi toho nějak moc. Stačí napsat jen 'nápověda'", hra.zpracujPrikaz("nápověda x"));
+        assertEquals("Napsal jsi toho nějak moc...", hra.zpracujPrikaz("nápověda x"));
 
         //správný výpis příkazu
         assertEquals("""
@@ -351,12 +352,13 @@ public class HraTest {
 
         //příkaz konec
         //chybný počet parametrů
-        assertEquals("Napsal jsi toho nějak moc. Stačí napsat jen 'konec'", hra.zpracujPrikaz("konec x"));
+        assertEquals("Napsal jsi toho nějak moc...", hra.zpracujPrikaz("konec x"));
 
         //správný výpis příkazu
-        assertEquals("hra ukončena příkazem konec", hra.zpracujPrikaz("konec"));
+        assertEquals("", hra.zpracujPrikaz("konec"));
         assertTrue(hra.konecHry());
-        assertEquals("Dík že jste si zahráli, ahoj.", hra.vratEpilog());
+        assertEquals("Hra byla ukončena příkazem konec.\n" +
+                "Díky že jste si zahráli, ahoj :)", hra.vratEpilog());
     }
 
     /**
@@ -367,7 +369,7 @@ public class HraTest {
     public void testPrikazSnez() {
         //chybný počet parametrů
         assertEquals("Co chceš sníst? Musíš napsat co chceš sníst...", hra.zpracujPrikaz("sněz"));
-        assertEquals("Chceš toho sníst nějak moc. Můžeš najednou sníst jen jednu věc.", hra.zpracujPrikaz("sněz x y"));
+        assertEquals("Napsal jsi toho nějak moc...", hra.zpracujPrikaz("sněz x y"));
 
         //hráč nemá předmět u sebe v kapsách
         assertEquals("x nemáš u sebe v kapsách...", hra.zpracujPrikaz("sněz x"));

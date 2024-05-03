@@ -1,5 +1,7 @@
 package logika;
 
+import uitext.Strings;
+
 /**
  * Třída PrikazOdemkni implementuje pro hru příkaz odemkni.
  * Tato třída je součástí jednoduché textové hry.
@@ -35,7 +37,7 @@ public class PrikazSeber implements IPrikaz {
             return "Co chceš sebrat? Musíš zadat název předmětu...";
         }
         if (parametry.length > 1) {
-            return "Chceš toho sebrat nějak moc. Můžeš najednou sebrat jen jednu věc.";
+            return Strings.CHYBA_MOC_TEXTU;
         }
 
         String nazevVeci = parametry[0];

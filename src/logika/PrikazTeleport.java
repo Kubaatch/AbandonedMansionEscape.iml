@@ -1,5 +1,7 @@
 package logika;
 
+import uitext.Strings;
+
 import java.util.Random;
 
 /**
@@ -12,7 +14,7 @@ import java.util.Random;
  */
 public class PrikazTeleport implements IPrikaz {
     private static final String NAZEV = "teleport";
-    private HerniPlan plan;
+    private final HerniPlan plan;
 
     /**
      * Konstruktor třídy
@@ -33,7 +35,7 @@ public class PrikazTeleport implements IPrikaz {
     @Override
     public String provedPrikaz(String[] parametry) {
         if (parametry.length > 0) {
-            return "Napsal jsi toho nějak moc...";
+            return Strings.CHYBA_MOC_TEXTU;
         }
 
         if (!plan.getAktualniProstor().getNazev().equals("přístěnek")) {

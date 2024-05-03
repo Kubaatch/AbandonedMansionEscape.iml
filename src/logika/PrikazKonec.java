@@ -1,5 +1,7 @@
 package logika;
 
+import uitext.Strings;
+
 /**
  * Třída PrikazKonec implementuje pro hru příkaz konec.
  * Tato třída je součástí jednoduché textové hry.
@@ -10,7 +12,7 @@ package logika;
  */
 public class PrikazKonec implements IPrikaz {
     private static final String NAZEV = "konec";
-    private Hra hra;
+    private final Hra hra;
 
     /**
      *  Konstruktor třídy
@@ -30,11 +32,12 @@ public class PrikazKonec implements IPrikaz {
     @Override
     public String provedPrikaz(String... parametry) {
         if (parametry.length > 0) {
-            return "Napsal jsi toho nějak moc. Stačí napsat jen 'konec'";
+            return Strings.CHYBA_MOC_TEXTU;
         }
         else {
             hra.setKonecHry();
-            return "hra ukončena příkazem konec";
+            hra.setEpilog(Strings.EPILOG_KONEC);
+            return "";
         }
     }
 

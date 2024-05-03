@@ -1,5 +1,7 @@
 package logika;
 
+import uitext.Strings;
+
 /**
  * Třída PrikazNapoved implementuje pro hru příkaz nápověd.
  * Tato třída je součástí jednoduché textové hry.
@@ -10,7 +12,7 @@ package logika;
  */
 public class PrikazNapoveda implements IPrikaz {
     private static final String NAZEV = "nápověda";
-    private SeznamPrikazu platnePrikazy;
+    private final SeznamPrikazu platnePrikazy;
     
     /**
     *  Konstruktor třídy
@@ -30,14 +32,10 @@ public class PrikazNapoveda implements IPrikaz {
     @Override
     public String provedPrikaz(String... parametry) {
         if (parametry.length > 0) {
-            return "Napsal jsi toho nějak moc. Stačí napsat jen 'nápověda'";
+            return Strings.CHYBA_MOC_TEXTU;
         }
 
-        return """
-        Tvým úkolem je najít klíč, který ti odemkne dveře ven z tohoto sídla.
-        
-        Můžeš zadat tyto příkazy:
-        """ + platnePrikazy.vratNazvyPrikazu();
+        return Strings.NAPOVEDA + platnePrikazy.vratNazvyPrikazu();
     }
     
      /**

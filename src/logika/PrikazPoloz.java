@@ -1,5 +1,7 @@
 package logika;
 
+import uitext.Strings;
+
 /**
  * Třída PrikazPoloz implementuje pro hru příkaz polož.
  * Tato třída je součástí jednoduché textové hry.
@@ -36,7 +38,7 @@ public class PrikazPoloz implements IPrikaz {
             return "Co chceš položit? Musíš zadat název předmětu...";
         }
         if (parametry.length > 1) {
-            return "Chceš toho položit nějak moc. Můžeš najednou položit jen jednu věc.";
+            return Strings.CHYBA_MOC_TEXTU;
         }
 
         String nazevVeci = parametry[0];

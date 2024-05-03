@@ -1,5 +1,7 @@
 package logika;
 
+import uitext.Strings;
+
 /**
  * Třída PrikazVypac implementuje pro hru příkaz vypač.
  * Tato třída je součástí jednoduché textové hry.
@@ -12,7 +14,7 @@ public class PrikazVypac implements IPrikaz {
 
     private static final String NAZEV = "vypač";
 
-    private HerniPlan plan;
+    private final HerniPlan plan;
 
     /**
      * Konstruktor třídy
@@ -41,7 +43,7 @@ public class PrikazVypac implements IPrikaz {
             return "Co chceš vypáčit? Musíš zadat název předmětu...";
         }
         if (parametry.length > 1) {
-            return "Chceš toho vypáčit nějak moc. Můžeš najednou vypáčit jen jednu věc.";
+            return Strings.CHYBA_MOC_TEXTU;
         }
 
         String nazevVeci = parametry[0];
@@ -55,7 +57,7 @@ public class PrikazVypac implements IPrikaz {
         }
 
         plan.getAktualniProstor().vyberVec(nazevVeci).setVypacitelnost(false);
-        Vec vlozenavec = null;
+        Vec vlozenavec;
         switch (nazevVeci) {
             case "prkno_v_podlaze":
                 vlozenavec = new Vec("rezavý_klíč", 1);

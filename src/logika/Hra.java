@@ -1,8 +1,10 @@
 package logika;
 
+import uitext.Strings;
+
 /**
  *  Třída Hra - třída představující logiku adventury.
- * 
+ * <p>
  *  Toto je hlavní třída logiky aplikace. Tato třída vytváří instanci třídy HerniPlan, která inicializuje prostory hry
  *  a vytváří seznam platných příkazů a instance tříd provádějící jednotlivé příkazy.
  *  Vypisuje uvítací a ukončovací text hry.
@@ -14,9 +16,9 @@ package logika;
 
 public class Hra implements IHra {
     private final SeznamPrikazu platnePrikazy;    // obsahuje seznam přípustných příkazů
-    private HerniPlan herniPlan;
+    private final HerniPlan herniPlan;
     private boolean konecHry = false;
-    private String epilog = "Dík že jste si zahráli, ahoj.";
+    private String epilog;
 
     /**
      *  Vytváří herní plán a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
@@ -43,12 +45,7 @@ public class Hra implements IHra {
      *  Vrátí úvodní zprávu pro hráče.
      */
     public String vratUvitani() {
-        return """
-               Vítej!
-               Probudil/a ses v královské posteli v očividně dlouho opuštěném sídle.
-               Nevíš proč tu jsi a chceš se co nejdříve dostat ven.
-               Napiš 'nápověda', pokud si nevíš rady, jak hrát dál.
-               """ +
+        return Strings.UVOD +
                 herniPlan.getAktualniProstor().dlouhyPopis() + '\n' +
                 herniPlan.getKapsy().dlouhyPopis();
     }

@@ -1,5 +1,7 @@
 package logika;
 
+import uitext.Strings;
+
 /**
  * Třída PrikazSnez implementuje pro hru příkaz sněz.
  * Tato třída je součástí jednoduché textové hry.
@@ -35,7 +37,7 @@ public class PrikazSnez implements IPrikaz {
             return "Co chceš sníst? Musíš napsat co chceš sníst...";
         }
         if (parametry.length > 1) {
-            return "Chceš toho sníst nějak moc. Můžeš najednou sníst jen jednu věc.";
+            return Strings.CHYBA_MOC_TEXTU;
         }
 
         String jidlo = parametry[0];

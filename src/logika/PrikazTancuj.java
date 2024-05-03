@@ -1,5 +1,7 @@
 package logika;
 
+import uitext.Strings;
+
 /**
  * Třída PrikazTancuj implementuje pro hru příkaz tancuj.
  * Tato třída je součástí jednoduché textové hry.
@@ -10,7 +12,7 @@ package logika;
  */
 public class PrikazTancuj implements IPrikaz {
     private static final String NAZEV = "tancuj";
-    private HerniPlan plan;
+    private final HerniPlan plan;
 
     /**
      * Konstruktor třídy
@@ -32,7 +34,7 @@ public class PrikazTancuj implements IPrikaz {
     @Override
     public String provedPrikaz(String[] parametry) {
         if (parametry.length > 0) {
-            return "Napsal jsi toho nějak moc...";
+            return Strings.CHYBA_MOC_TEXTU;
         }
 
         plan.getInsanityMeter().setUrovenZblazneni(0);
