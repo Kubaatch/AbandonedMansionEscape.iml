@@ -17,11 +17,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class HraTest {
     private IHra hra;
 
+    /**
+     * metoda, která se spustí před každým testem v této třídě
+     * zakládá novou hru, ve které testy probíhají
+     */
     @BeforeEach
     public void setUp(){
         hra = new Hra();
     }
 
+    /**
+     * metoda, která se spustí po každém testu v této třídě
+     * ukončí hru vytvořenou v metodě setUp()
+     */
     @AfterEach
     public void tearDown() {
         hra = null;
@@ -250,14 +258,14 @@ public class HraTest {
         hra.zpracujPrikaz("seber svíčka");
         hra.zpracujPrikaz("jdi chodba");
         //zde kapacita 2 ze 4
-        assertEquals(2, hra.getHerniPlan().getKapsy().getMaxKapacita());
+        assertEquals(2, hra.getHerniPlan().getKapsy().getKapacita());
 
         assertEquals("Sebral jsi kožené_boty", hra.zpracujPrikaz("seber kožené_boty"));
         //zde kapacita 4 ze 4
-        assertEquals(4, hra.getHerniPlan().getKapsy().getMaxKapacita());
+        assertEquals(4, hra.getHerniPlan().getKapsy().getKapacita());
 
         assertEquals("Snažíš se nacpat předmět květináč do plných kapes.", hra.zpracujPrikaz("seber květináč"));
-        assertEquals(4, hra.getHerniPlan().getKapsy().getMaxKapacita());
+        assertEquals(4, hra.getHerniPlan().getKapsy().getKapacita());
         //nedovolí hráči přidat další předmět do kapes
     }
 

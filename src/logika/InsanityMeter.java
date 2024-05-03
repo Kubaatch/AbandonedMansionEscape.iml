@@ -17,7 +17,7 @@ public class InsanityMeter {
     /**
      * Konstruktor třídy
      *
-     * @param urovenZblazneni
+     * @param urovenZblazneni číselná hodnota určující míru zbláznění hráče
      */
     public InsanityMeter(int urovenZblazneni) {
         this.urovenZblazneni = urovenZblazneni;

@@ -202,7 +202,7 @@ public class Prostor {
     }
 
     /**
-     * Vloží věc do prostoru, tedy do List<Vec> jménem seznamVeci
+     * Vloží věc do prostoru, tedy do Listu(Vec) jménem seznamVeci
      *
      * @param vec věc vkládaná do prostoru
      */

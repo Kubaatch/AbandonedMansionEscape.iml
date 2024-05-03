@@ -109,7 +109,12 @@ public class Kapsy {
         return false;
     }
 
-    public int getMaxKapacita() {
+    /**
+     * metoda vrací odkaz na využitou kapacitu kapes
+     *
+     * @return číselná hodnota - zaplněnost kapes
+     */
+    public int getKapacita() {
         return vyuzitaKapacita;
     }
 }

@@ -70,40 +70,88 @@ public class Vec {
         this.velikost = velikost;
     }
 
-
+    /**
+     * metoda vrací odkaz na název věci
+     *
+     * @return název
+     */
     public String getNazev() {
         return nazev;
     }
 
+    /**
+     * metoda vrací odkaz na přenositelnost věci
+     *
+     * @return true pokud lze sebrat, jinak false
+     */
     public boolean isPrenositelna() {
         return prenositelna;
     }
 
+    /**
+     * metoda vrací odkaz na velikost věci
+     * slouží pro sledování kapacity
+     *
+     * @return číselná hodnota - velikost věci
+     */
     public int getVelikost() {
         return velikost;
     }
 
+    /**
+     * metoda vrací odkaz na vypáčitelnost
+     *
+     * @return true pokud lze vypáčit, jinak false
+     */
     public boolean isVypacitelna() {
         return vypacitelna;
     }
 
+    /**
+     * metoda nastavuje vypáčitelnost věci
+     * slouží jako toggle po vypáčení, aby věc nebylo možno vypáčit dvakrát
+     *
+     * @param vypacitelna boolean hodnota určující vypáčitelnost věci
+     */
     public void setVypacitelnost(boolean vypacitelna) {
         this.vypacitelna = vypacitelna;
     }
 
+    /**
+     * metoda vrací odkaz na jedlost
+     *
+     * @return true pokud je věc jedlá, jinak false
+     */
     public boolean isJedla() {
         return jedla;
     }
 
+    /**
+     * metoda vrací odkaz na čitelnost
+     *
+     * @return kapsy
+     */
     public boolean isCitelna() {
         return citelna;
     }
 
+    /**
+     * metoda vrací odkaz na schovanost
+     *
+     * @return true pokud je věc schovaná (=nezobrazuje se v seznamu věcí), jinak false
+     */
     public boolean isSchovana() {
         return schovana;
     }
 
+    /**
+     * metoda nastavuje schovanost věci
+     * slouží pro odhalení prkna_v_podlaze po přečtení deníku
+     *
+     * @param schovana boolean hodnota určující schovanost věci
+     */
     public void setSchovanost(boolean schovana) {
         this.schovana = schovana;
     }
 }
+

@@ -18,7 +18,9 @@ public class TextoveRozhrani {
     private IHra hra;
 
     /**
-     *  Vytváří hru.
+     * Vytváří hru.
+     *
+     * @param hra instance vytvářené hry
      */
     public TextoveRozhrani(IHra hra) {
         this.hra = hra;
