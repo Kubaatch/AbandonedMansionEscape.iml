@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Obsahuje několik testů, každý má vlastní konkrétní využití.
  *
  * @author    Jakub Hřebíček
- * @version   v2.0 2024/05/03
+ * @version   v2.0.3 2024/05/24
  */
 public class HraTest {
     private IHra hra;
@@ -191,7 +191,7 @@ public class HraTest {
                 věci v místnosti: zdobená_váza deštník lucerna
                 Obsah kapes: řízek_v_alobalu páčidlo deník rezavý_klíč""", hra.zpracujPrikaz("jdi foyer"));
 
-        // 20. odemkni dveře_ven
+        // 20. odemkni východ
         assertEquals("Odemknul jsi východ", hra.zpracujPrikaz("odemkni východ"));
 
         // 21. jdi dveře_ven (vyhraje hru)
@@ -427,9 +427,34 @@ public class HraTest {
         assertEquals("Vesele sis zatancoval/a, máš teď mnohem lepší náladu :)", hra.zpracujPrikaz("tancuj "));
     }
 
+    /**
+     * Test - PříkazOdemkni
+     * kontroluje funkčnost příkazu tancuj a všechny možné výstupy
+     * úspěšné odemčení prostoru je kontrolováno v TestScénář
+     */
     @Test
     public void testOdemkni() {
-        //DOPLNIT TENTO TEST
+        //specifikovaná věc není dostupná v okolí
+        assertEquals("ložnice není ve tvém okolí, nelze tedy odemknout.", hra.zpracujPrikaz("odemkni ložnice"));
+
+        //sousední prostor není zamčený
+        assertEquals("Prostor je odemčený, nemusíš ho odemykat.", hra.zpracujPrikaz("odemkni chodba"));
+
+        //věc nelze odemykat
+        assertEquals("Tuto věc nelze odemykat...", hra.zpracujPrikaz("odemkni svíčka"));
+
+        hra.zpracujPrikaz("abrakadabra");
+
+        //chybí klíč k odemknutí
+        assertEquals("Chybí ti klíč, kterým bys mohl truhlu odemknout", hra.zpracujPrikaz("odemkni truhla"));
+
+        hra.zpracujPrikaz("seber klíč_od_truhly");
+
+        //úspěšné odemčení
+        assertEquals("Odemknul jsi truhla", hra.zpracujPrikaz("odemkni truhla"));
+
+        //věc nelze znovu odemknout
+        assertEquals("Tato věc je odemčená, nemusíš ji odemykat", hra.zpracujPrikaz("odemkni truhla"));
     }
 
     @Test

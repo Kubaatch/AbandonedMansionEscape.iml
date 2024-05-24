@@ -8,7 +8,7 @@ import uitext.Strings;
  * Zavoláním tohoto příkazu se hra pokusí odemknout místnost, jež hráč specifikoval v parametrech.
  *
  * @author   Jakub Hřebíček
- * @version   v2.0 2024/05/03
+ * @version   v2.0.3 2024/05/24
  */
 public class PrikazSeber implements IPrikaz {
     private static final String NAZEV = "seber";
@@ -51,6 +51,7 @@ public class PrikazSeber implements IPrikaz {
             return nazevVeci + " se nedá sebrat.";
         }
 
+        //speciální podmínka pro speciální předmět, ten lze přidat i při plné kapacitě kapes
         if (pozadovanaVec.isSpecialni() && plan.getKapsy().isMaxKapacita()) {
             pozadovanaVec.setVelikost(0);
         }

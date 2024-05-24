@@ -12,7 +12,7 @@ import java.util.List;
  *  a pamatuje si výherní prostor a aktuální prostor, ve kterém se hráč právě nachází.
  *
  * @author    Jakub Hřebíček
- * @version   v2.0 2024/05/03
+ * @version   v2.0.3 2024/05/24
  */
 public class HerniPlan {
     private final List<Prostor> seznamProstoru;

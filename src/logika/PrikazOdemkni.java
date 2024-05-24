@@ -8,8 +8,9 @@ import uitext.Strings;
  * Zavoláním tohoto příkazu se hra pokusí odemknout místnost, jež hráč specifikoval v parametrech.
  *
  * @author   Jakub Hřebíček
- * @version   v2.0 2024/05/03
+ * @version   v2.0.3 2024/05/24
  */
+@SuppressWarnings("EnhancedSwitchMigration")
 public class PrikazOdemkni implements IPrikaz {
     private static final String NAZEV = "odemkni";
     private final HerniPlan plan;
@@ -25,8 +26,7 @@ public class PrikazOdemkni implements IPrikaz {
 
     /**
      * Provádí příkaz odemkni.
-     * Zkouší odemknout zamčený prostor
-     * kontroluje zda hráč má klíč a zda místnost je sousední a je zamčená.
+     * Zkouší odemknout zamčený prostor nebo zamčenou věc
      *
      * @param parametry prostor, který chce hráč odemknout
      * @return zpráva, kterou vypíše hra hráči
@@ -62,6 +62,13 @@ public class PrikazOdemkni implements IPrikaz {
         }
     }
 
+    /**
+     * Metoda zpracovává odemykání věci.
+     * Kontroluje zda je věc zamčená a zda má hráč klíč.
+     *
+     * @param nazevVeci název věci, kterou chce hráč odemknout
+     * @return zpráva, kterou vypíše hra hráči
+     */
     private String odemykaniVeci(String nazevVeci) {
         Vec vec = plan.getAktualniProstor().vyberVec(nazevVeci);
 
@@ -87,6 +94,13 @@ public class PrikazOdemkni implements IPrikaz {
         return "Odemknul jsi " + nazevVeci;
     }
 
+    /**
+     * Metoda zpracovává odemykání prostoru.
+     * Kontroluje zda je prostor zamčený a zda má hráč klíč.
+     *
+     * @param sousedniProstor prostor, který chce hráč odemknout
+     * @return zpráva, kterou vypíše hra hráči
+     */
     private String odemykaniProstoru(Prostor sousedniProstor) {
         if (!sousedniProstor.isZamceny()) {
             return "Prostor je odemčený, nemusíš ho odemykat.";

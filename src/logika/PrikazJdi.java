@@ -70,7 +70,9 @@ public class PrikazJdi implements IPrikaz {
             upozorneni = Strings.UPOZORNENI_ZBLAZNENI;
         }
 
+        plan.setPredchoziProstor(plan.getAktualniProstor());
         plan.setAktualniProstor(sousedniProstor);
+
         if (plan.getAktualniProstor().equals(plan.getVyherniProstor())) {
             hra.setEpilog(Strings.EPILOG_WIN);
             hra.setKonecHry();

@@ -10,7 +10,7 @@ import java.util.List;
  * např.: velikost, vypáčitelnost, čitelnost apod.
  *
  * @author    Jakub Hřebíček
- * @version   v2.0 2024/05/03
+ * @version   v2.0.3 2024/05/24
  */
 public class Vec {
     private final String nazev;
@@ -105,6 +105,11 @@ public class Vec {
         prenositelna = true;
     }
 
+    /**
+     * metoda vrací odkaz na speciálnost věci
+     *
+     * @return true pokud je věc speciální, jinak false
+     */
     public boolean isSpecialni() {
         return specialni;
     }

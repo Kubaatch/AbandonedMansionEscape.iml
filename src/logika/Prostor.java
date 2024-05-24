@@ -11,7 +11,7 @@ import java.util.*;
  * Prostor může být zamčený, pokud se tak nastaví v boolean zamceny.
  *
  * @author    Jakub Hřebíček
- * @version   v2.0 2024/05/03
+ * @version   v2.0.3 2024/05/24
  */
 public class Prostor {
 
