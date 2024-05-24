@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Obsahuje několik testů, každý má vlastní konkrétní využití.
  *
  * @author    Jakub Hřebíček
- * @version   v2.0.3 2024/05/24
+ * @version   v2.0.4 2024/05/24
  */
 public class HraTest {
     private IHra hra;
@@ -219,7 +219,7 @@ public class HraTest {
         //úspěch
         assertEquals("Sebral jsi svíčka", hra.zpracujPrikaz("seber svíčka"));
 
-        //předmět byl sebrán, již neexistuje
+        //předmět byl sebrán, již není v prostoru
         assertEquals("svíčka se nenachází v tomto prostoru.", hra.zpracujPrikaz("seber svíčka"));
 
         //předmět nelze sebrat
@@ -434,6 +434,10 @@ public class HraTest {
      */
     @Test
     public void testOdemkni() {
+        //chybný počet parametrů
+        assertEquals("Co mám odemknout? Musíš zadat název předmětu/místnosti...", hra.zpracujPrikaz("odemkni"));
+        assertEquals("Napsal jsi toho nějak moc...", hra.zpracujPrikaz("odemkni x y"));
+
         //specifikovaná věc není dostupná v okolí
         assertEquals("ložnice není ve tvém okolí, nelze tedy odemknout.", hra.zpracujPrikaz("odemkni ložnice"));
 
@@ -459,8 +463,13 @@ public class HraTest {
 
     @Test
     public void testAbrakadabra() {
+        //chybný počet parametrů
+        assertEquals("Napsal jsi toho nějak moc...", hra.zpracujPrikaz("abrakadabra x"));
+
+        //vyprázdnění kapes pro další testy
         hra.zpracujPrikaz("sněz řízek_v_alobalu");
 
+        //chybný a úspěšný průběh příkazu samotného
         assertEquals("Nevím co tím myslíš? Tento příkaz neznám... ", hra.zpracujPrikaz("avadakedavra"));
         assertEquals("""
                 Popis místnosti 'tajemná_komnata': skrytá místnost s tajemnými symboly na zdech a starým oltářem uprostřed.
@@ -468,20 +477,22 @@ public class HraTest {
                 věci v místnosti: truhla klíč_od_truhly
                 Obsah kapes:""", hra.zpracujPrikaz("abrakadabra"));
 
-        assertEquals(0, hra.getHerniPlan().getKapsy().getKapacita());
-
+        //sebrání klíče, odemčení truhly a vložení věcí do prostoru
         assertEquals("Sebral jsi klíč_od_truhly", hra.zpracujPrikaz("seber klíč_od_truhly"));
-
         assertEquals("Odemknul jsi truhla", hra.zpracujPrikaz("odemkni truhla"));
-
         assertEquals("""
                 Popis místnosti 'tajemná_komnata': skrytá místnost s tajemnými symboly na zdech a starým oltářem uprostřed.
                 sousední místnosti:
                 věci v místnosti: truhla medailon drahokam mapa amulet kompas kouzelný_prsten
                 Obsah kapes: klíč_od_truhly""", hra.zpracujPrikaz("info"));
 
+        //vyprázdnění kapes pro další testy
         hra.zpracujPrikaz("polož klíč_od_truhly");
 
+        //kontrola prázdných kapes
+        assertEquals(0, hra.getHerniPlan().getKapsy().getKapacita());
+
+        //postupné sebrání věcí z truhly (prostoru)
         assertEquals("Sebral jsi medailon", hra.zpracujPrikaz("seber medailon"));
         assertEquals("Sebral jsi drahokam", hra.zpracujPrikaz("seber drahokam"));
         assertEquals("Sebral jsi mapa", hra.zpracujPrikaz("seber mapa"));
@@ -489,12 +500,29 @@ public class HraTest {
         assertEquals("Snažíš se nacpat předmět kompas do plných kapes.", hra.zpracujPrikaz("seber kompas"));
         assertEquals("Sebral jsi kouzelný_prsten", hra.zpracujPrikaz("seber kouzelný_prsten"));
 
+        //kontrola maximální kapacity
         assertEquals(4, hra.getHerniPlan().getKapsy().getKapacita());
 
+        //navrácení příkazem abrakadabra do předchozí místnosti
         assertEquals("""
                 Popis místnosti 'ložnice': starobylá místnost s prázdnými skříněmi a prasklým zrcadlem.
                 sousední místnosti: chodba
                 věci v místnosti: královská_postel noční_stolek svíčka
+                Obsah kapes: medailon drahokam mapa amulet kouzelný_prsten""", hra.zpracujPrikaz("abrakadabra"));
+
+        hra.zpracujPrikaz("jdi chodba");
+        hra.zpracujPrikaz("jdi foyer");
+
+        assertEquals("""
+                Popis místnosti 'tajemná_komnata': skrytá místnost s tajemnými symboly na zdech a starým oltářem uprostřed.
+                sousední místnosti:
+                věci v místnosti: truhla kompas klíč_od_truhly
+                Obsah kapes: medailon drahokam mapa amulet kouzelný_prsten""", hra.zpracujPrikaz("abrakadabra"));
+
+        assertEquals("""
+                Popis místnosti 'foyer': vstupní místnost s prachem pokrytými soškami.
+                sousední místnosti: chodba východ(zamčeno)🔒 1.patro jídelna studovna
+                věci v místnosti: zdobená_váza deštník lucerna
                 Obsah kapes: medailon drahokam mapa amulet kouzelný_prsten""", hra.zpracujPrikaz("abrakadabra"));
     }
 }

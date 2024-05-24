@@ -59,7 +59,6 @@ public class PrikazSeber implements IPrikaz {
         boolean povedloSeUlozit = plan.getKapsy().vlozDoKapes(pozadovanaVec);
 
         if (!povedloSeUlozit) {
-            plan.getAktualniProstor().vlozVec(pozadovanaVec);
             return "Snažíš se nacpat předmět " + pozadovanaVec.getNazev() + " do plných kapes.";
         }
 
