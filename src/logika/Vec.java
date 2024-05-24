@@ -1,5 +1,8 @@
 package logika;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Třída Vec popisuje jednotlivé předměty ve hře.
  * Tato třída je součástí jednoduché textové hry.
@@ -17,7 +20,9 @@ public class Vec {
     private boolean jedla;
     private boolean citelna;
     private boolean schovana;
-    private boolean zamcena;
+    private boolean specialni;
+    private Boolean zamcena;
+    private List<Vec> seznamVeci;
 
     /**
      * Jeden z konstruktorů třídy, tento využívá parametry název a velikost
@@ -83,6 +88,34 @@ public class Vec {
         prenositelna = false;
         this.vypacitelna = vypacitelna;
         this.zamcena = zamcena;
+        seznamVeci = new ArrayList<>();
+    }
+
+    /**
+     * Jeden z konstruktorů třídy, tento využívá parametry název, vypáčitelná a zamčená
+     *
+     * @param nazev název věci
+     * @param specialni true pokud má výjimku z kapacity batohu
+     * @param velikost velikost věci, je využita při kontrole kapacity kapes
+     */
+    public Vec(boolean specialni, String nazev, int velikost) {
+        this.specialni = specialni;
+        this.nazev = nazev;
+        this.velikost = velikost;
+        prenositelna = true;
+    }
+
+    public boolean isSpecialni() {
+        return specialni;
+    }
+
+    /**
+     * metoda vrací seznam věcí ve věci
+     *
+     * @return list věcí
+     */
+    public List<Vec> getSeznamVeci() {
+        return seznamVeci;
     }
 
     /**
@@ -111,6 +144,16 @@ public class Vec {
      */
     public int getVelikost() {
         return velikost;
+    }
+
+    /**
+     * metoda nastavuje velikost věci
+     * slouží pro určení velikosti věci, když se během hry mění
+     *
+     * @param velikost int hodnota určující velikost věci
+     */
+    public void setVelikost(int velikost) {
+        this.velikost = velikost;
     }
 
     /**
@@ -174,7 +217,7 @@ public class Vec {
      *
      * @return true pokud je věc zamčená (=nelze ji otevřít), jinak false
      */
-    public boolean isZamcena() {
+    public Boolean isZamcena() {
         return zamcena;
     }
 
@@ -186,6 +229,10 @@ public class Vec {
      */
     public void setZamcena(boolean zamcena) {
         this.zamcena = zamcena;
+    }
+
+    public void vlozVec(Vec vec) {
+        seznamVeci.add(vec);
     }
 }
 

@@ -51,6 +51,10 @@ public class PrikazSeber implements IPrikaz {
             return nazevVeci + " se nedá sebrat.";
         }
 
+        if (pozadovanaVec.isSpecialni() && plan.getKapsy().isMaxKapacita()) {
+            pozadovanaVec.setVelikost(0);
+        }
+
         boolean povedloSeUlozit = plan.getKapsy().vlozDoKapes(pozadovanaVec);
 
         if (!povedloSeUlozit) {

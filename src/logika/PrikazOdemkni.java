@@ -40,23 +40,65 @@ public class PrikazOdemkni implements IPrikaz {
             return Strings.CHYBA_MOC_TEXTU;
         }
 
-        if (!plan.getKapsy().obsahujeVec("rezavý_klíč")) {
-            return "Chybí ti klíč, kterým bys mohl dveře odemknout";
+        String nazevVeci = parametry[0];
+        Prostor sousedniProstor = plan.getAktualniProstor().vratSousedniProstor(nazevVeci);
+
+        int predmetNeboProstor = -1; //0 pokud odemykám předmět, 1 pokud prostor, -1 značí chybu
+        if (plan.getAktualniProstor().obsahujeVec(nazevVeci)) {
+            predmetNeboProstor = 0; //odemykám předmět
+        } else if (sousedniProstor != null) {
+            predmetNeboProstor = 1; //odemykám prostor
         }
 
-        String nazevProstoru = parametry[0];
-        Prostor sousedniProstor = plan.getAktualniProstor().vratSousedniProstor(nazevProstoru);
+        switch (predmetNeboProstor) {
+            case 0:
+                return odemykaniVeci(nazevVeci);
+            case 1:
+                return odemykaniProstoru(sousedniProstor);
+            case -1:
+                return nazevVeci + " není ve tvém okolí, nelze tedy odemknout.";
+            default:
+                return "";
+        }
+    }
 
-        if (sousedniProstor == null) {
-            return "Tento prostor nesousedí s tvým aktuálním prostorem.";
+    private String odemykaniVeci(String nazevVeci) {
+        Vec vec = plan.getAktualniProstor().vyberVec(nazevVeci);
+
+        if (vec.isZamcena() == null) {
+            return "Tuto věc nelze odemykat...";
         }
 
+        if (!vec.isZamcena()) {
+            return "Tato věc je odemčená, nemusíš ji odemykat";
+        }
+
+        //funguje pouze pro tuto jednu truhlu
+        if (!plan.getKapsy().obsahujeVec("klíč_od_truhly")) {
+            return "Chybí ti klíč, kterým bys mohl truhlu odemknout";
+        }
+
+        for (Vec vecUvnitr : vec.getSeznamVeci())
+        {
+            plan.getAktualniProstor().vlozVec(vecUvnitr);
+        }
+
+        vec.setZamcena(false);
+        return "Odemknul jsi " + nazevVeci;
+    }
+
+    private String odemykaniProstoru(Prostor sousedniProstor) {
         if (!sousedniProstor.isZamceny()) {
             return "Prostor je odemčený, nemusíš ho odemykat.";
         }
 
+        //funguje pouze pro jedny odemykatelné dveře
+        if (!plan.getKapsy().obsahujeVec("rezavý_klíč")) {
+            return "Chybí ti klíč, kterým bys mohl prostor odemknout";
+        }
+
         sousedniProstor.setZamceny(false);
-        return "Odemknul jsi " + nazevProstoru;
+        return "Odemknul jsi " + sousedniProstor.getNazev();
     }
 
     /**

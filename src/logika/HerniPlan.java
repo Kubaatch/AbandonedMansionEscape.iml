@@ -119,7 +119,17 @@ public class HerniPlan {
         pristenek.vlozVec(new Vec("ořechy", 1, true));
         pristenek.vlozVec(new Vec("sklenice_medu", 2, true));
         pristenek.vlozVec(new Vec("kouzelnická_hůlka", 1));
-        tajemnaKomnata.vlozVec(new Vec("truhla", false, true));
+
+        Vec truhla = new Vec("truhla", false, true);
+
+        truhla.vlozVec(new Vec("medailon", 1));
+        truhla.vlozVec(new Vec("drahokam", 1));
+        truhla.vlozVec(new Vec("mapa", 1));
+        truhla.vlozVec(new Vec("amulet", 1));
+        truhla.vlozVec(new Vec("kompas", 1));
+        truhla.vlozVec(new Vec(true, "kouzelný_prsten", 1));
+
+        tajemnaKomnata.vlozVec(truhla);
         tajemnaKomnata.vlozVec(new Vec("klíč_od_truhly", 1));
 
         //schová prkno_v_podlaze, neobjevuje se pak ve výpisu věcí v místnosti

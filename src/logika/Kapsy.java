@@ -32,7 +32,6 @@ public class Kapsy {
      * @return     vrací true pokud se povedlo vložit, jinak false
      */
     public boolean vlozDoKapes(Vec vec) {
-
         if (vyuzitaKapacita + vec.getVelikost() <= maxKapacita && vec.isPrenositelna()) {
             obsahKapes.add(vec);
             vyuzitaKapacita += vec.getVelikost();
@@ -116,5 +115,9 @@ public class Kapsy {
      */
     public int getKapacita() {
         return vyuzitaKapacita;
+    }
+
+    public boolean isMaxKapacita() {
+        return vyuzitaKapacita == maxKapacita;
     }
 }
