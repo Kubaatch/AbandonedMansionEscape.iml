@@ -33,15 +33,15 @@ public class PrikazOdemkni implements IPrikaz {
      */
     @Override
     public String provedPrikaz(String[] parametry) {
-        if (!plan.getKapsy().obsahujeVec("rezavý_klíč")) {
-            return "Chybí ti klíč, kterým bys mohl dveře odemknout";
-        }
-
         if (parametry.length == 0) {
-            return "Co mám odemknout? Musíš zadat název předmětu...";
+            return "Co mám odemknout? Musíš zadat název předmětu/místnosti...";
         }
         if (parametry.length > 1) {
             return Strings.CHYBA_MOC_TEXTU;
+        }
+
+        if (!plan.getKapsy().obsahujeVec("rezavý_klíč")) {
+            return "Chybí ti klíč, kterým bys mohl dveře odemknout";
         }
 
         String nazevProstoru = parametry[0];

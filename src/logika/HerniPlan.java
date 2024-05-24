@@ -17,6 +17,7 @@ import java.util.List;
 public class HerniPlan {
     private final List<Prostor> seznamProstoru;
     private Prostor aktualniProstor;
+    private Prostor predchoziProstor;
     private Prostor vyherniProstor;
     private InsanityMeter insanityMeter;
     private Kapsy kapsy;
@@ -48,6 +49,7 @@ public class HerniPlan {
         Prostor knihovna = new Prostor("knihovna", "menší místnost plná knih všech velikostí a barev");
         Prostor pristenek = new Prostor("přístěnek", "malá kouzelná místnůstka, schovávající se pod schody do patra");
         Prostor prvniPatro = new Prostor("1.patro", "nábytkem zcela zablokovaná část sídla, kam se nedá dostat");
+        Prostor tajemnaKomnata = new Prostor("tajemná_komnata", "skrytá místnost s tajemnými symboly na zdech a starým oltářem uprostřed");
 
         // prostory se vkládají do seznamu prostorů
         vlozProstor(dvereVen);
@@ -61,6 +63,7 @@ public class HerniPlan {
         vlozProstor(knihovna);
         vlozProstor(pristenek);
         vlozProstor(prvniPatro);
+        vlozProstor(tajemnaKomnata);
 
         // vytváří se východy z prostorů (sousedící prostory)
         foyer.setVychody(List.of(new Prostor[]{dvereVen, jidelna, studovna, chodba, prvniPatro}));
@@ -76,6 +79,7 @@ public class HerniPlan {
 
         // určení počátečního a výherního prostoru
         aktualniProstor = loznice;
+        predchoziProstor = loznice;
         vyherniProstor = dvereVen;
 
         //vkládají se věci do místností
@@ -115,6 +119,8 @@ public class HerniPlan {
         pristenek.vlozVec(new Vec("ořechy", 1, true));
         pristenek.vlozVec(new Vec("sklenice_medu", 2, true));
         pristenek.vlozVec(new Vec("kouzelnická_hůlka", 1));
+        tajemnaKomnata.vlozVec(new Vec("truhla", false, true));
+        tajemnaKomnata.vlozVec(new Vec("klíč_od_truhly", 1));
 
         //schová prkno_v_podlaze, neobjevuje se pak ve výpisu věcí v místnosti
         sklep.vyberVec("prkno_v_podlaze").setSchovanost(true);
@@ -163,7 +169,7 @@ public class HerniPlan {
     }
 
     /**
-     *  Metoda vrací odkaz na aktuální prostor, ve ktetém se hráč právě nachází.
+     *  Metoda vrací odkaz na aktuální prostor, ve kterém se hráč právě nachází.
      *
      * @return  aktuální prostor
      */
@@ -178,6 +184,24 @@ public class HerniPlan {
      */
     public void setAktualniProstor(Prostor prostor) {
        aktualniProstor = prostor;
+    }
+
+    /**
+     *  Metoda vrací odkaz na předchozí prostor, ve kterém se hráč nacházel před aktuálním prostorem.
+     *
+     * @return  předchozí prostor
+     */
+    public Prostor getPredchoziProstor() {
+        return predchoziProstor;
+    }
+
+    /**
+     *  Metoda uloží předchozí prostor, ze kterého se hráč přesunul jinam
+     *
+     * @param predchoziProstor předchozí prostor
+     */
+    public void setPredchoziProstor(Prostor predchoziProstor) {
+        this.predchoziProstor = predchoziProstor;
     }
 
     /**

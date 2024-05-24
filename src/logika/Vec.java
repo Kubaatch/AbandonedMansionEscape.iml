@@ -17,6 +17,7 @@ public class Vec {
     private boolean jedla;
     private boolean citelna;
     private boolean schovana;
+    private boolean zamcena;
 
     /**
      * Jeden z konstruktorů třídy, tento využívá parametry název a velikost
@@ -68,6 +69,20 @@ public class Vec {
         prenositelna = true;
         this.citelna = citelna;
         this.velikost = velikost;
+    }
+
+    /**
+     * Jeden z konstruktorů třídy, tento využívá parametry název, vypáčitelná a zamčená
+     *
+     * @param nazev název věci
+     * @param vypacitelna true, pokud věc lze vypáčit, jinak false
+     * @param zamcena true, pokud je věc zamčená, jinak false
+     */
+    public Vec(String nazev, boolean vypacitelna, boolean zamcena) {
+        this.nazev = nazev;
+        prenositelna = false;
+        this.vypacitelna = vypacitelna;
+        this.zamcena = zamcena;
     }
 
     /**
@@ -152,6 +167,25 @@ public class Vec {
      */
     public void setSchovanost(boolean schovana) {
         this.schovana = schovana;
+    }
+
+    /**
+     * metoda vrací odkaz na zamčenost
+     *
+     * @return true pokud je věc zamčená (=nelze ji otevřít), jinak false
+     */
+    public boolean isZamcena() {
+        return zamcena;
+    }
+
+    /**
+     * metoda nastavuje zamčenost věci
+     * slouží jako toggle pro určení, zda je truhla (apod.) zamčená nebo ne
+     *
+     * @param zamcena boolean hodnota určující zamčenost věci
+     */
+    public void setZamcena(boolean zamcena) {
+        this.zamcena = zamcena;
     }
 }
 
